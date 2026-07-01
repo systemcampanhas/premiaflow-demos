@@ -213,7 +213,7 @@
             <p class="lead">Cadastre suas compras, acompanhe seus números da sorte e participe de uma experiência especial direto pelo celular.</p>
             <p class="notice-strip">Demonstração comercial · Sem campanha ativa · Sem coleta real de dados</p>
             <div class="actions">
-              <a class="btn primary" href="#abas" data-open-tab="journey">Ver demonstração</a>
+              <a class="btn primary" href="#abas" data-open-tab="journey">Começar</a>
               <a class="btn secondary" href="#como-funciona" data-open-tab="journey">Como funciona</a>
             </div>
           </div>
@@ -257,7 +257,7 @@
                   <label>Empresa<select id="store"><option>Moda Premium</option><option>Casa &amp; Design</option><option>Café Central</option><option>Tech Store</option></select></label>
                   <label>Data da compra<input id="date" type="date" /></label>
                 </div>
-                <button class="inline-action" type="submit" style="margin-top: 16px">Simular cadastro</button>
+                <button class="inline-action" type="submit" style="margin-top: 16px">Cadastrar compra</button>
               </form>
               <div class="tile result-card" id="purchase-result" aria-live="polite">
                 <span class="pill review">Validação pendente</span>
@@ -285,9 +285,9 @@
               <div class="reel"><div class="track"></div></div>
             </div>
             <div class="slot-status" id="slot-result" aria-live="polite">
-              <span class="pill demo">Resultado demonstrativo</span>
+              <span class="pill demo">Pronto para jogar</span>
               <h3>Gire as marcas para revelar sua rodada.</h3>
-              <p class="muted">Sem premiação real. Números da sorte demonstrativos.</p>
+              <p class="muted">A cada giro, um número da sorte é gerado.</p>
             </div>
             <div class="slot-actions">
               <a class="btn secondary" href="#abas" data-open-tab="journey">Voltar</a>
@@ -314,7 +314,7 @@
             <div>
               <span class="badge">Meus números da sorte</span>
               <h2>Seus números da sorte</h2>
-              <p class="muted">Veja os números demonstrativos vinculados às compras desta apresentação.</p>
+              <p class="muted">Veja os números vinculados às suas compras e rodadas.</p>
             </div>
             <div class="grid" id="number-list">
     <article class="tile number-item">
@@ -408,12 +408,11 @@
 
       <footer class="footer">
           <span class="badge">Rio Preto Shopping</span>
-          <p class="muted">Demonstração comercial. Sem campanha ativa, sem premiação real e sem coleta real de dados. Os números da sorte exibidos são demonstrativos e uma campanha oficial precisa de regulamento próprio.</p>
       </footer>
     </div>
 
     <script>
-      const demoConfig = {"slug":"rio-preto-shopping","clientName":"Rio Preto Shopping","subtitle":"Campanha Premia Flow","title":"Vem aí uma nova forma de participar das campanhas do shopping","heroText":"Cadastre suas compras, acompanhe seus números da sorte e participe de uma experiência especial direto pelo celular.","colors":{"backgroundTop":"#06172c","backgroundMid":"#0b2745","backgroundBottom":"#071a31","primary":"#dcecff","accent":"#f0c040","surface":"rgba(9, 31, 57, 0.9)","surfaceAlt":"rgba(13, 43, 75, 0.92)","text":"#f6fbff","muted":"#b7c7d8"},"logo":"rio-preto-shopping.png","heroMetrics":[{"label":"Status","value":"Chegando em breve","note":"Uma nova jornada para o cliente do shopping."},{"label":"Carteira","value":"4 números","note":"Seus números reunidos em um só lugar."},{"label":"Compras","value":"R$ 780","note":"Total visual da experiência."},{"label":"Jogo","value":"Gire e descubra","note":"Uma rodada ganha, outra não ganha."}],"purchase":{"defaultCpf":"123.***.***-09","defaultAmount":"R$ 250,00","stores":["Moda Premium","Casa & Design","Café Central","Tech Store"]},"game":{"title":"Gire as marcas do shopping","intro":"A cada rodada, o cliente gira as marcas participantes. Quando ganha, o prêmio exibido é Vale-compras R$ 300,00.","winPrize":"Vale-compras R$ 300,00","brands":[{"name":"Carrefour","asset":"carrefour.png"},{"name":"Claro","asset":"claro.png"},{"name":"Renner","asset":"renner.png"},{"name":"Rio Preto Shopping","asset":"rio-preto-shopping.png"}]},"wallet":{"totalPurchases":"R$ 780,00","luckyNumbers":"4","status":"Em análise","nextDraw":"15/08"},"luckyNumbers":[{"number":"001-18429","store":"Moda Premium","amount":"R$ 320,00","status":"válido"},{"number":"002-28710","store":"Casa & Design","amount":"R$ 180,00","status":"em análise"},{"number":"003-39166","store":"Café Central","amount":"R$ 80,00","status":"gerado"},{"number":"004-48291","store":"Tech Store","amount":"R$ 200,00","status":"gerado"}],"prizes":[{"title":"Vale-compras R$ 300,00","description":"Para aproveitar em lojas participantes do shopping.","tag":"prêmio do jogo"},{"title":"Experiência VIP no shopping","description":"Momentos especiais para viver o shopping de um jeito diferente.","tag":"experiência"},{"title":"Prêmio especial","description":"Uma surpresa para encerrar a campanha em grande estilo.","tag":"campanha"}],"dates":{"nextDraw":"15/08","campaignWindow":"Em breve"},"commercialNotice":"Demonstração comercial. Sem campanha ativa, sem premiação real e sem coleta real de dados. Os números da sorte exibidos são demonstrativos e uma campanha oficial precisa de regulamento próprio."};
+      const demoConfig = {"slug":"rio-preto-shopping","clientName":"Rio Preto Shopping","subtitle":"Campanha Premia Flow","title":"Vem aí uma nova forma de participar das campanhas do shopping","heroText":"Cadastre suas compras, acompanhe seus números da sorte e participe de uma experiência especial direto pelo celular.","colors":{"backgroundTop":"#06172c","backgroundMid":"#0b2745","backgroundBottom":"#071a31","primary":"#dcecff","accent":"#f0c040","surface":"rgba(9, 31, 57, 0.9)","surfaceAlt":"rgba(13, 43, 75, 0.92)","text":"#f6fbff","muted":"#b7c7d8"},"logo":"rio-preto-shopping.png","heroMetrics":[{"label":"Status","value":"Chegando em breve","note":"Uma nova jornada para o cliente do shopping."},{"label":"Carteira","value":"4 números","note":"Seus números reunidos em um só lugar."},{"label":"Compras","value":"R$ 780","note":"Total visual da experiência."},{"label":"Jogo","value":"Gire e descubra","note":"Uma rodada ganha, outra não ganha."}],"purchase":{"defaultCpf":"123.***.***-09","defaultAmount":"R$ 250,00","stores":["Moda Premium","Casa & Design","Café Central","Tech Store"]},"game":{"title":"Gire as marcas do shopping","intro":"A cada rodada, o cliente gira as marcas participantes. Quando ganha, o prêmio exibido é Vale-compras R$ 300,00.","winPrize":"Vale-compras R$ 300,00","brands":[{"name":"Carrefour","asset":"carrefour.png"},{"name":"Claro","asset":"claro.png"},{"name":"Renner","asset":"renner.png"},{"name":"Rio Preto Shopping","asset":"rio-preto-shopping.png"}]},"wallet":{"totalPurchases":"R$ 780,00","luckyNumbers":"4","status":"Em análise","nextDraw":"15/08"},"luckyNumbers":[{"number":"001-18429","store":"Moda Premium","amount":"R$ 320,00","status":"válido"},{"number":"002-28710","store":"Casa & Design","amount":"R$ 180,00","status":"em análise"},{"number":"003-39166","store":"Café Central","amount":"R$ 80,00","status":"gerado"},{"number":"004-48291","store":"Tech Store","amount":"R$ 200,00","status":"gerado"}],"prizes":[{"title":"Vale-compras R$ 300,00","description":"Para aproveitar em lojas participantes do shopping.","tag":"prêmio do jogo"},{"title":"Experiência VIP no shopping","description":"Momentos especiais para viver o shopping de um jeito diferente.","tag":"experiência"},{"title":"Prêmio especial","description":"Uma surpresa para encerrar a campanha em grande estilo.","tag":"campanha"}],"dates":{"nextDraw":"15/08","campaignWindow":"Em breve"}};
       const purchaseForm = document.querySelector("#purchase-form");
       const purchaseResult = document.querySelector("#purchase-result");
       const generatedNumber = document.querySelector("#generated-number");
@@ -507,7 +506,7 @@
         spinButton.disabled = true;
         slotPhase.textContent = "Girando...";
         slotResult.innerHTML = `
-          <span class="pill demo">Resultado demonstrativo</span>
+          <span class="pill demo">Girando</span>
           <h3>As marcas estão girando...</h3>
           <p class="muted">Boa sorte!</p>
         `;
@@ -522,20 +521,20 @@
           slotPhase.textContent = outcome === "win" ? "Você ganhou" : "Não foi desta vez";
           if (outcome === "win") {
             slotResult.innerHTML = `
-              <span class="pill valid">Resultado demonstrativo</span>
+              <span class="pill valid">Parabéns</span>
               <h3>${demoConfig.game.winPrize}</h3>
-              <p class="muted">Participação demonstrativa vinculada ao número da sorte abaixo.</p>
+              <p class="muted">Número da sorte gerado nesta rodada:</p>
               <div class="lucky-number">${code}</div>
             `;
-            addNumber(code, "Jogo Premia", demoConfig.game.winPrize);
+            addNumber(code, "Jogo da campanha", demoConfig.game.winPrize);
           } else {
             slotResult.innerHTML = `
-              <span class="pill review">Resultado demonstrativo</span>
+              <span class="pill review">Rodada concluída</span>
               <h3>Não foi desta vez</h3>
-              <p class="muted">Mesmo sem prêmio nesta rodada, sua participação demonstrativa gerou um número da sorte.</p>
+              <p class="muted">Número da sorte gerado nesta rodada:</p>
               <div class="lucky-number">${code}</div>
             `;
-            addNumber(code, "Jogo Premia", "Participação demonstrativa", "demonstrativo");
+            addNumber(code, "Jogo da campanha", "Rodada concluída");
           }
           nextSlotOutcome = outcome === "win" ? "lose" : "win";
           spinButton.textContent = "Girar novamente";
@@ -549,9 +548,9 @@
         renderReels();
         slotPhase.textContent = "Pronto para girar";
         slotResult.innerHTML = `
-          <span class="pill demo">Resultado demonstrativo</span>
+          <span class="pill demo">Pronto para jogar</span>
           <h3>Gire as marcas para revelar sua rodada.</h3>
-          <p class="muted">Sem premiação real. Números da sorte demonstrativos.</p>
+          <p class="muted">A cada giro, um número da sorte é gerado.</p>
         `;
       }
 
