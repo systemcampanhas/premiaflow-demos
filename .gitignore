@@ -1,0 +1,7 @@
+*
+!.gitignore
+!.nojekyll
+!rio-preto-shopping/
+!rio-preto-shopping/index.html
+!rio-preto-shopping/assets/
+!rio-preto-shopping/assets/**
