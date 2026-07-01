@@ -233,9 +233,9 @@
         <section class="section active" id="como-funciona" data-panel="journey">
           <span class="badge">Como funciona</span>
           <h2>Da compra ao número da sorte</h2>
-          <p class="muted">A jornada é simples: compre nas lojas participantes, cadastre sua compra e acompanhe tudo pelo celular.</p>
+          <p class="muted">A jornada é simples: compre nas empresas participantes, cadastre sua compra e acompanhe tudo pelo celular.</p>
           <div class="grid grid-4">
-            <article class="tile"><span class="step">1</span><h3>Compre</h3><p class="muted">Compre nas lojas participantes.</p></article>
+            <article class="tile"><span class="step">1</span><h3>Compre</h3><p class="muted">Compre nas empresas participantes.</p></article>
             <article class="tile"><span class="step">2</span><h3>Cadastre</h3><p class="muted">Cadastre sua nota ou cupom fiscal.</p></article>
             <article class="tile"><span class="step">3</span><h3>Receba</h3><p class="muted">Receba números da sorte.</p></article>
             <article class="tile"><span class="step">4</span><h3>Acompanhe</h3><p class="muted">Acompanhe apuração e ganhadores.</p></article>
@@ -254,7 +254,7 @@
                 <div class="form-grid">
                   <label>CPF mascarado<input id="cpf" value="123.***.***-09" inputmode="numeric" /></label>
                   <label>Valor da compra<input id="amount" value="R$ 250,00" inputmode="decimal" /></label>
-                  <label>Loja<select id="store"><option>Moda Premium</option><option>Casa &amp; Design</option><option>Café Central</option><option>Tech Store</option></select></label>
+                  <label>Empresa<select id="store"><option>Moda Premium</option><option>Casa &amp; Design</option><option>Café Central</option><option>Tech Store</option></select></label>
                   <label>Data da compra<input id="date" type="date" /></label>
                 </div>
                 <button class="inline-action" type="submit" style="margin-top: 16px">Simular cadastro</button>
@@ -532,8 +532,10 @@
             slotResult.innerHTML = `
               <span class="pill review">Resultado demonstrativo</span>
               <h3>Não foi desta vez</h3>
-              <p class="muted">Continue acompanhando suas participações demonstrativas.</p>
+              <p class="muted">Mesmo sem prêmio nesta rodada, sua participação demonstrativa gerou um número da sorte.</p>
+              <div class="lucky-number">${code}</div>
             `;
+            addNumber(code, "Jogo Premia", "Participação demonstrativa", "demonstrativo");
           }
           nextSlotOutcome = outcome === "win" ? "lose" : "win";
           spinButton.textContent = "Girar novamente";
