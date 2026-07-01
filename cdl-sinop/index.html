@@ -532,8 +532,10 @@
             slotResult.innerHTML = `
               <span class="pill review">Resultado demonstrativo</span>
               <h3>Não foi desta vez</h3>
-              <p class="muted">Continue acompanhando suas participações demonstrativas.</p>
+              <p class="muted">Mesmo sem prêmio nesta rodada, sua participação demonstrativa gerou um número da sorte.</p>
+              <div class="lucky-number">${code}</div>
             `;
+            addNumber(code, "Jogo Premia", "Participação demonstrativa", "demonstrativo");
           }
           nextSlotOutcome = outcome === "win" ? "lose" : "win";
           spinButton.textContent = "Girar novamente";
