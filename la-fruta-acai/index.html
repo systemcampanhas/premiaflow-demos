@@ -58,12 +58,12 @@
         border-radius: 18px;
         display: grid;
         flex: 0 0 auto;
-        height: 76px;
+        height: 72px;
         place-items: center;
-        padding: 3px;
-        width: 76px;
+        padding: 5px;
+        width: 72px;
       }
-      .logo img { height: 100%; object-fit: contain; width: 100%; }
+      .logo img { border-radius: 12px; height: 100%; object-fit: contain; width: 100%; }
       .brand strong { display: block; font-size: 1.16rem; letter-spacing: 0.04em; line-height: 1; text-transform: uppercase; }
       .brand span { color: rgba(255,255,255,0.68); display: block; font-size: 0.76rem; letter-spacing: 0.16em; margin-top: 4px; text-transform: uppercase; }
       .nav { flex-wrap: wrap; justify-content: flex-end; }
@@ -172,8 +172,8 @@
       .track { transform: translateY(calc(var(--slot-reel-item-height) * -6)); transition: transform 2.8s cubic-bezier(.12,.72,.08,1); }
       .reel.spinning .track { animation: slot-spin 0.22s linear infinite; }
       .symbol { align-items: center; display: flex; height: var(--slot-reel-item-height); justify-content: center; padding: 4px; }
-      .brand-tile { align-items: center; background: #fff; border-radius: 14px; display: flex; height: calc(var(--slot-reel-item-height) - 8px); justify-content: center; overflow: hidden; padding: 3px; width: 100%; }
-      .brand-tile img { display: block; height: 100%; max-height: 100%; max-width: 100%; object-fit: contain; width: 100%; }
+      .brand-tile { align-items: center; background: #fff; border-radius: 14px; display: flex; height: calc(var(--slot-reel-item-height) - 10px); justify-content: center; overflow: hidden; padding: 5px; width: 100%; }
+      .brand-tile img { border-radius: 10px; display: block; height: 100%; max-height: 100%; max-width: 100%; object-fit: contain; width: 100%; }
       @keyframes slot-spin { from { transform: translateY(0); } to { transform: translateY(calc(var(--slot-reel-item-height) * -6)); } }
       .slot-status { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 22px; margin-top: 16px; padding: 16px; }
       .slot-actions { flex-wrap: wrap; margin-top: 16px; }
