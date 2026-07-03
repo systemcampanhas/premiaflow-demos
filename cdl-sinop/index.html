@@ -142,6 +142,7 @@
       .tab { background: transparent; border: 0; color: rgba(255,255,255,0.76); }
       .content { display: grid; gap: 18px; }
       .section, .footer { padding: clamp(22px, 3vw, 30px); }
+      .section { scroll-margin-top: 14px; }
       .section.alt { background: var(--surface-alt); }
       [data-panel] { display: none; }
       [data-panel].active { display: block; }
@@ -202,7 +203,7 @@
           </a>
           <nav class="nav">
             <a href="#abas" data-open-tab="journey">Participar</a>
-            <a href="#abas" data-open-tab="game">Jogar</a>
+            <a href="#slot" data-open-tab="game">Jogar</a>
             <a href="#regulamento" data-open-tab="journey">Regulamento</a>
           </nav>
         </div>
@@ -461,6 +462,12 @@
         panels.forEach((panel) => panel.classList.toggle("active", panel.dataset.panel === tabName));
       }
 
+      function scrollToElement(target) {
+        window.requestAnimationFrame(() => {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+
       function addNumber(code, store, amount, statusText = "gerado") {
         const item = document.createElement("article");
         item.className = "tile number-item";
@@ -493,11 +500,15 @@
           const target = document.querySelector(anchor.getAttribute("href"));
           if (!target) return;
           event.preventDefault();
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          scrollToElement(target);
         });
       });
 
-      tabButtons.forEach((button) => button.addEventListener("click", () => openTab(button.dataset.tab)));
+      tabButtons.forEach((button) => button.addEventListener("click", () => {
+        openTab(button.dataset.tab);
+        const target = document.querySelector(button.dataset.tab === "game" ? "#slot" : "#abas");
+        if (target) scrollToElement(target);
+      }));
 
       function spinSlot() {
         if (slotLocked) return;
