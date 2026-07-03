@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zappa's | Premia Flow</title>
+    <style>
+      :root {
+        --bg-top: #2a1208;
+        --bg-mid: #8f4a1d;
+        --bg-bottom: #150704;
+        --primary: #ffe5c7;
+        --accent: #d99a48;
+        --surface: rgba(43, 19, 9, 0.93);
+        --surface-alt: rgba(94, 45, 20, 0.94);
+        --text: #fffaf6;
+        --muted: #f4cfad;
+        --line: rgba(211, 219, 228, 0.2);
+        --shadow: 0 22px 70px rgba(0, 0, 0, 0.26);
+        --slot-reel-item-height: 92px;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: linear-gradient(180deg, var(--bg-top), var(--bg-mid) 52%, var(--bg-bottom));
+        color: var(--text);
+        line-height: 1.5;
+      }
+      button, input, select { font: inherit; }
+      a { color: inherit; text-decoration: none; }
+      .page { margin: 0 auto; max-width: 1160px; padding: 16px; }
+      .hero, .section, .footer {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        box-shadow: var(--shadow);
+      }
+      .hero {
+        background:
+          radial-gradient(circle at top left, color-mix(in srgb, var(--accent) 30%, transparent), transparent 32%),
+          radial-gradient(circle at 90% 18%, rgba(255,255,255,0.16), transparent 28%),
+          linear-gradient(152deg, var(--bg-top), var(--bg-mid) 72%);
+        overflow: hidden;
+        padding: clamp(20px, 4vw, 34px);
+      }
+      .topbar, .brand, .nav, .actions, .slot-actions {
+        align-items: center;
+        display: flex;
+        gap: 12px;
+      }
+      .topbar { justify-content: space-between; margin-bottom: 28px; }
+      .brand { min-width: 0; }
+      .logo {
+        background: rgba(255,255,255,0.95);
+        border-radius: 18px;
+        display: grid;
+        flex: 0 0 auto;
+        height: 72px;
+        place-items: center;
+        padding: 5px;
+        width: 72px;
+      }
+      .logo img { border-radius: 12px; height: 100%; object-fit: contain; width: 100%; }
+      .brand strong { display: block; font-size: 1.16rem; letter-spacing: 0.04em; line-height: 1; text-transform: uppercase; }
+      .brand span { color: rgba(255,255,255,0.68); display: block; font-size: 0.76rem; letter-spacing: 0.16em; margin-top: 4px; text-transform: uppercase; }
+      .nav { flex-wrap: wrap; justify-content: flex-end; }
+      .nav a, .btn, .tab {
+        align-items: center;
+        border-radius: 999px;
+        display: inline-flex;
+        font-weight: 800;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 18px;
+        text-align: center;
+      }
+      .nav a, .btn.secondary {
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.18);
+        color: #fff;
+      }
+      .btn.primary, .tab.active {
+        background: var(--accent);
+        border: 1px solid var(--accent);
+        color: #2b1f19;
+      }
+      .btn, .tab { cursor: pointer; }
+      .hero-grid { align-items: center; display: grid; gap: 32px; grid-template-columns: minmax(0, 0.98fr) minmax(300px, 0.82fr); }
+      .eyebrow, .badge {
+        background: rgba(240, 192, 64, 0.14);
+        border: 1px solid rgba(240, 192, 64, 0.36);
+        border-radius: 999px;
+        color: #ffe2a2;
+        display: inline-flex;
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        padding: 9px 15px;
+        text-transform: uppercase;
+        width: fit-content;
+      }
+      .notice-strip {
+        background: rgba(240, 192, 64, 0.16);
+        border: 1px solid rgba(240, 192, 64, 0.42);
+        border-radius: 22px;
+        color: #ffe2a2;
+        font-weight: 800;
+        margin-top: 18px;
+        padding: 14px 16px;
+      }
+      h1, h2, h3, p { margin-top: 0; }
+      h1 {
+        font-size: clamp(2.8rem, 8vw, 5.4rem);
+        letter-spacing: -0.04em;
+        line-height: 0.94;
+        margin-bottom: 18px;
+        max-width: 11ch;
+      }
+      h2 { color: var(--text); font-size: clamp(1.75rem, 4vw, 2.75rem); letter-spacing: -0.04em; line-height: 1.04; margin-bottom: 10px; }
+      h3 { color: var(--text); margin-bottom: 8px; }
+      .lead { color: rgba(255,255,255,0.82); line-height: 1.76; max-width: 44ch; }
+      .metrics, .grid { display: grid; gap: 14px; }
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .metric, .tile, details {
+        background: rgba(255,255,255,0.08);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 18px;
+      }
+      .metric strong, .metric-value {
+        color: #fff;
+        display: block;
+        font-size: 1.5rem;
+        font-weight: 900;
+        margin-top: 8px;
+      }
+      .muted, .metric small { color: var(--muted); }
+      .tabs { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; display: grid; gap: 8px; grid-template-columns: repeat(2, 1fr); margin: 18px 0; padding: 8px; }
+      .tab { background: transparent; border: 0; color: rgba(255,255,255,0.76); }
+      .content { display: grid; gap: 18px; }
+      .section, .footer { padding: clamp(22px, 3vw, 30px); }
+      .section { scroll-margin-top: 14px; }
+      .section.alt { background: var(--surface-alt); }
+      [data-panel] { display: none; }
+      [data-panel].active { display: block; }
+      .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .step { align-items: center; background: var(--primary); border-radius: 18px; color: var(--accent); display: inline-flex; font-weight: 900; height: 42px; justify-content: center; margin-bottom: 14px; width: 42px; }
+      .form-grid { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      label { color: var(--text); display: grid; font-size: 0.86rem; font-weight: 850; gap: 7px; }
+      input, select { background: rgba(255,255,255,0.96); border: 1px solid rgba(211, 219, 228, 0.95); border-radius: 16px; color: #172033; min-height: 50px; padding: 12px 14px; width: 100%; }
+      .inline-action { background: var(--accent); border: 0; border-radius: 999px; color: #2b1f19; cursor: pointer; font-weight: 900; min-height: 50px; padding: 0 18px; width: 100%; }
+      .result-card { display: none; margin-top: 16px; }
+      .result-card.visible { display: block; }
+      .lucky-number, .number-code { color: var(--accent); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 950; letter-spacing: 0; }
+      .lucky-number { font-size: clamp(1.6rem, 8vw, 2.7rem); }
+      .number-code { font-size: 1.14rem; }
+      .pill { border-radius: 999px; display: inline-flex; font-size: 0.76rem; font-weight: 900; padding: 6px 10px; }
+      .pill.valid { background: #e8fff6; color: #21745b; }
+      .pill.review { background: #eaf4ff; color: #2b6495; }
+      .pill.demo { background: #fff7df; color: #765312; }
+      .number-item { align-items: center; display: grid; gap: 12px; grid-template-columns: 1fr auto; }
+      .slot { background: linear-gradient(145deg, #17142f, #211c46); border: 1px solid rgba(240, 192, 64, 0.34); border-radius: 30px; color: #f8f5ef; overflow: hidden; padding: clamp(18px, 3vw, 28px); }
+      .slot-top { align-items: center; display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; margin-bottom: 16px; }
+      .reels { background: #0f0c22; border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; display: grid; gap: 8px; grid-template-columns: repeat(3, 1fr); padding: 12px; position: relative; }
+      .reels::after { border-bottom: 2px solid rgba(240, 192, 64, 0.9); border-top: 2px solid rgba(240, 192, 64, 0.9); content: ""; height: var(--slot-reel-item-height); left: 12px; pointer-events: none; position: absolute; right: 12px; top: calc(12px + var(--slot-reel-item-height)); }
+      .reel { background: linear-gradient(180deg, #fff, #ece9df); border-radius: 18px; height: calc(var(--slot-reel-item-height) * 3); overflow: hidden; position: relative; }
+      .track { transform: translateY(calc(var(--slot-reel-item-height) * -6)); transition: transform 2.8s cubic-bezier(.12,.72,.08,1); }
+      .reel.spinning .track { animation: slot-spin 0.22s linear infinite; }
+      .symbol { align-items: center; display: flex; height: var(--slot-reel-item-height); justify-content: center; padding: 4px; }
+      .brand-tile { align-items: center; background: #fff; border-radius: 14px; display: flex; height: calc(var(--slot-reel-item-height) - 10px); justify-content: center; overflow: hidden; padding: 5px; width: 100%; }
+      .brand-tile img { border-radius: 10px; display: block; height: 100%; max-height: 100%; max-width: 100%; object-fit: contain; width: 100%; }
+      @keyframes slot-spin { from { transform: translateY(0); } to { transform: translateY(calc(var(--slot-reel-item-height) * -6)); } }
+      .slot-status { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 22px; margin-top: 16px; padding: 16px; }
+      .slot-actions { flex-wrap: wrap; margin-top: 16px; }
+      summary { color: var(--text); cursor: pointer; font-weight: 900; }
+      @media (max-width: 860px) {
+        .page { padding: 0; }
+        .hero, .section, .footer { border-radius: 0; }
+        .topbar { align-items: flex-start; flex-direction: column; }
+        .hero-grid, .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 560px) {
+        :root { --slot-reel-item-height: 78px; }
+        .nav, .actions, .slot-actions { width: 100%; }
+        .nav a, .btn, .tab { width: 100%; }
+        .form-grid, .metrics { grid-template-columns: 1fr; }
+        .number-item { align-items: start; grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero" id="inicio">
+        <div class="topbar">
+          <a class="brand" href="#inicio">
+            <span class="logo"><img src="./assets/zappas-logo.png" alt="Zappa's" /></span>
+            <span><strong>Zappa's</strong><span>Pães e Tentações · Experiência Premia Flow</span></span>
+          </a>
+          <nav class="nav">
+            <a href="#abas" data-open-tab="journey">Participar</a>
+            <a href="#slot" data-open-tab="game">Jogar</a>
+            <a href="#regulamento" data-open-tab="journey">Regulamento</a>
+          </nav>
+        </div>
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow">Campanha Promocional</span>
+            <h1>Zappa's</h1>
+            <p class="lead">Cadastre sua compra, acompanhe seus números da sorte e participe de uma experiência especial com produtos Zappa's.</p>
+            <p class="notice-strip">Demonstração comercial · Sem campanha ativa · Sem coleta real de dados</p>
+            <div class="actions">
+              <a class="btn primary" href="#abas" data-open-tab="journey">Começar</a>
+              <a class="btn secondary" href="#como-funciona" data-open-tab="journey">Como funciona</a>
+            </div>
+          </div>
+          <div class="metrics"><article class="metric"><small>Status</small><strong>Chegando em breve</strong><small>Uma nova jornada para o cliente.</small></article>
+<article class="metric"><small>Carteira</small><strong>4 números</strong><small>Seus números reunidos em um só lugar.</small></article>
+<article class="metric"><small>Compras</small><strong>R$ 640</strong><small>Total visual da experiência.</small></article>
+<article class="metric"><small>Jogo</small><strong>Gire e descubra</strong><small>Uma rodada especial da campanha.</small></article></div>
+        </div>
+      </header>
+
+      <div class="tabs" id="abas">
+        <button class="tab active" type="button" data-tab="journey">Minha participação</button>
+        <button class="tab" type="button" data-tab="game">Jogar</button>
+      </div>
+
+      <main class="content">
+        <section class="section active" id="como-funciona" data-panel="journey">
+          <span class="badge">Como funciona</span>
+          <h2>Da compra ao número da sorte</h2>
+          <p class="muted">A jornada é simples: compre nas empresas participantes, cadastre sua compra e acompanhe tudo pelo celular.</p>
+          <div class="grid grid-4">
+            <article class="tile"><span class="step">1</span><h3>Compre</h3><p class="muted">Compre nas empresas participantes.</p></article>
+            <article class="tile"><span class="step">2</span><h3>Cadastre</h3><p class="muted">Cadastre sua nota ou cupom fiscal.</p></article>
+            <article class="tile"><span class="step">3</span><h3>Receba</h3><p class="muted">Receba números da sorte.</p></article>
+            <article class="tile"><span class="step">4</span><h3>Acompanhe</h3><p class="muted">Acompanhe apuração e ganhadores.</p></article>
+          </div>
+        </section>
+
+        <section class="section alt active" id="cadastro" data-panel="journey">
+          <div class="grid grid-2">
+            <div>
+              <span class="badge">Cadastrar compra</span>
+              <h2>Cadastro de compra</h2>
+              <p class="muted">Preencha os dados da compra para ver como o cliente recebe seu número da sorte.</p>
+            </div>
+            <div class="tile">
+              <form id="purchase-form">
+                <div class="form-grid">
+                  <label>CPF mascarado<input id="cpf" value="123.***.***-09" inputmode="numeric" /></label>
+                  <label>Valor da compra<input id="amount" value="R$ 86,00" inputmode="decimal" /></label>
+                  <label>Empresa<select id="store"><option>Zappa&#39;s Pães e Tentações</option><option>Croissant</option><option>Cappuccino</option><option>Beirute</option><option>Bolo</option></select></label>
+                  <label>Data da compra<input id="date" type="date" /></label>
+                </div>
+                <button class="inline-action" type="submit" style="margin-top: 16px">Cadastrar compra</button>
+              </form>
+              <div class="tile result-card" id="purchase-result" aria-live="polite">
+                <span class="pill review">Validação pendente</span>
+                <h3 style="margin-top: 12px">Cadastro recebido</h3>
+                <p class="muted">Número da sorte gerado</p>
+                <div class="lucky-number" id="generated-number">001-00000</div>
+                <p class="muted">Acompanhe esse número na sua carteira.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="slot" data-panel="game">
+          <span class="badge">Experiência especial</span>
+          <h2>Gire os sabores Zappa's</h2>
+          <p class="muted">A cada rodada, o cliente gira a logo e produtos da Zappa's. O prêmio exibido é Vale-compras R$ 300,00.</p>
+          <div class="slot">
+            <div class="slot-top">
+              <span class="badge">Jogo da campanha</span>
+              <span id="slot-phase">Pronto para girar</span>
+            </div>
+            <div class="reels" aria-label="Jogo de marcas">
+              <div class="reel"><div class="track"></div></div>
+              <div class="reel"><div class="track"></div></div>
+              <div class="reel"><div class="track"></div></div>
+            </div>
+            <div class="slot-status" id="slot-result" aria-live="polite">
+              <span class="pill demo">Pronto para jogar</span>
+              <h3>Gire as marcas para revelar sua rodada.</h3>
+              <p class="muted">A cada giro, um número da sorte é gerado.</p>
+            </div>
+            <div class="slot-actions">
+              <a class="btn secondary" href="#abas" data-open-tab="journey">Voltar</a>
+              <button class="btn primary" id="spin-slot" type="button">Girar agora</button>
+              <button class="btn secondary" id="reset-slot" type="button">Jogar novamente</button>
+              <a class="btn secondary" href="#numeros" data-open-tab="journey">Ver meus números</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="section alt active" id="carteira" data-panel="journey">
+          <span class="badge">Carteira do consumidor</span>
+          <h2>Resumo da participação</h2>
+          <div class="grid grid-4">
+            <article class="tile"><h3>Total em compras</h3><span class="metric-value" id="wallet-total">R$ 640,00</span></article>
+            <article class="tile"><h3>Números da sorte</h3><span class="metric-value" id="wallet-numbers">4</span></article>
+            <article class="tile"><h3>Status</h3><span class="metric-value">Em análise</span></article>
+            <article class="tile"><h3>Próxima apuração</h3><span class="metric-value">Em breve</span></article>
+          </div>
+        </section>
+
+        <section class="section active" id="numeros" data-panel="journey">
+          <div class="grid grid-2">
+            <div>
+              <span class="badge">Meus números da sorte</span>
+              <h2>Seus números da sorte</h2>
+              <p class="muted">Veja os números vinculados às suas compras e rodadas.</p>
+            </div>
+            <div class="grid" id="number-list">
+    <article class="tile number-item">
+      <div>
+        <div class="number-code">001-18429</div>
+        <p class="muted">Zappa&#39;s Pães e Tentações · R$ 86,00</p>
+      </div>
+      <span class="pill valid">válido</span>
+    </article>
+  
+
+    <article class="tile number-item">
+      <div>
+        <div class="number-code">002-28710</div>
+        <p class="muted">Croissant · R$ 64,00</p>
+      </div>
+      <span class="pill review">em análise</span>
+    </article>
+  
+
+    <article class="tile number-item">
+      <div>
+        <div class="number-code">003-39166</div>
+        <p class="muted">Beirute · R$ 130,00</p>
+      </div>
+      <span class="pill demo">gerado</span>
+    </article>
+  
+
+    <article class="tile number-item">
+      <div>
+        <div class="number-code">004-48291</div>
+        <p class="muted">Bolo · R$ 360,00</p>
+      </div>
+      <span class="pill demo">gerado</span>
+    </article>
+  </div>
+          </div>
+        </section>
+
+        <section class="section alt active" id="premios" data-panel="journey">
+          <span class="badge">Prêmios</span>
+          <h2>Prêmios da campanha</h2>
+          <div class="grid grid-3">
+    <article class="tile">
+      <h3>Vale-compras R$ 300,00</h3>
+      <p class="muted">Para aproveitar em produtos e experiências da Zappa&#39;s.</p>
+      <br />
+      <span class="pill demo">prêmio do jogo</span>
+    </article>
+  
+
+    <article class="tile">
+      <h3>Experiência especial</h3>
+      <p class="muted">Momentos especiais para viver a campanha de um jeito diferente.</p>
+      <br />
+      <span class="pill demo">experiência</span>
+    </article>
+  
+
+    <article class="tile">
+      <h3>Prêmio especial</h3>
+      <p class="muted">Uma surpresa para encerrar a campanha em grande estilo.</p>
+      <br />
+      <span class="pill demo">campanha</span>
+    </article>
+  </div>
+        </section>
+
+        <section class="section active" id="regulamento" data-panel="journey">
+          <div class="grid grid-2">
+            <div><span class="badge">Regulamento</span><h2>Transparência para participar</h2></div>
+            <div class="tile">
+              <p><strong>Toda campanha deve possuir regulamento próprio.</strong></p>
+              <p class="muted">A apuração e validações seguem as regras definidas para a campanha.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section alt active" id="faq" data-panel="journey">
+          <span class="badge">FAQ rápido</span>
+          <h2>Dúvidas comuns</h2>
+          <div class="grid grid-2">
+            <details open><summary>Como participo?</summary><p class="muted">Cadastre compras elegíveis e acompanhe seus números pelo celular.</p></details>
+            <details><summary>Preciso guardar a nota fiscal?</summary><p class="muted">Sim, a nota pode ser necessária para validação e conferência.</p></details>
+            <details><summary>Como recebo meus números?</summary><p class="muted">Após o cadastro, o sistema exibe os números vinculados à compra.</p></details>
+            <details><summary>Como sei se ganhei?</summary><p class="muted">A comunicação segue os canais e regras definidos no regulamento.</p></details>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+          <span class="badge">Zappa's</span>
+      </footer>
+    </div>
+
+    <script>
+      const demoConfig = {"slug":"zappas","clientName":"Zappa's","pageTitle":"Zappa's | Premia Flow","subtitle":"Pães e Tentações · Experiência Premia Flow","title":"Zappa's","heroText":"Cadastre sua compra, acompanhe seus números da sorte e participe de uma experiência especial com produtos Zappa's.","colors":{"backgroundTop":"#2a1208","backgroundMid":"#8f4a1d","backgroundBottom":"#150704","primary":"#ffe5c7","accent":"#d99a48","surface":"rgba(43, 19, 9, 0.93)","surfaceAlt":"rgba(94, 45, 20, 0.94)","text":"#fffaf6","muted":"#f4cfad"},"logo":"zappas-logo.png","heroMetrics":[{"label":"Status","value":"Chegando em breve","note":"Uma nova jornada para o cliente."},{"label":"Carteira","value":"4 números","note":"Seus números reunidos em um só lugar."},{"label":"Compras","value":"R$ 640","note":"Total visual da experiência."},{"label":"Jogo","value":"Gire e descubra","note":"Uma rodada especial da campanha."}],"purchase":{"defaultCpf":"123.***.***-09","defaultAmount":"R$ 86,00","stores":["Zappa's Pães e Tentações","Croissant","Cappuccino","Beirute","Bolo"]},"game":{"title":"Gire os sabores Zappa's","intro":"A cada rodada, o cliente gira a logo e produtos da Zappa's. O prêmio exibido é Vale-compras R$ 300,00.","winPrize":"Vale-compras R$ 300,00","brands":[{"name":"Zappa's","asset":"zappas.png"},{"name":"Croissant","asset":"croissant.png"},{"name":"Cappuccino","asset":"cappuccino.png"},{"name":"Beirute","asset":"beirute.png"},{"name":"Bolo","asset":"bolo.png"}]},"wallet":{"totalPurchases":"R$ 640,00","luckyNumbers":"4","status":"Em análise","nextDraw":"Em breve"},"luckyNumbers":[{"number":"001-18429","store":"Zappa's Pães e Tentações","amount":"R$ 86,00","status":"válido"},{"number":"002-28710","store":"Croissant","amount":"R$ 64,00","status":"em análise"},{"number":"003-39166","store":"Beirute","amount":"R$ 130,00","status":"gerado"},{"number":"004-48291","store":"Bolo","amount":"R$ 360,00","status":"gerado"}],"prizes":[{"title":"Vale-compras R$ 300,00","description":"Para aproveitar em produtos e experiências da Zappa's.","tag":"prêmio do jogo"},{"title":"Experiência especial","description":"Momentos especiais para viver a campanha de um jeito diferente.","tag":"experiência"},{"title":"Prêmio especial","description":"Uma surpresa para encerrar a campanha em grande estilo.","tag":"campanha"}],"dates":{"nextDraw":"Em breve","campaignWindow":"Em breve"}};
+      const purchaseForm = document.querySelector("#purchase-form");
+      const purchaseResult = document.querySelector("#purchase-result");
+      const generatedNumber = document.querySelector("#generated-number");
+      const numberList = document.querySelector("#number-list");
+      const walletNumbers = document.querySelector("#wallet-numbers");
+      const walletTotal = document.querySelector("#wallet-total");
+      const dateInput = document.querySelector("#date");
+      const spinButton = document.querySelector("#spin-slot");
+      const resetButton = document.querySelector("#reset-slot");
+      const slotResult = document.querySelector("#slot-result");
+      const slotPhase = document.querySelector("#slot-phase");
+      const reels = Array.from(document.querySelectorAll(".reel"));
+      const tabButtons = Array.from(document.querySelectorAll(".tab"));
+      const panels = Array.from(document.querySelectorAll("[data-panel]"));
+      const symbols = demoConfig.game.brands.map((brand) => ({
+        id: brand.name,
+        html: `<span class="brand-tile"><img src="./assets/${brand.asset}" alt="${brand.name}"></span>`,
+      }));
+      let demoNumbersCount = Number.parseInt(demoConfig.wallet.luckyNumbers, 10) || demoConfig.luckyNumbers.length;
+      let slotLocked = false;
+      let nextSlotOutcome = "win";
+      dateInput.valueAsDate = new Date();
+
+      function fakeLuckyNumber() {
+        const serie = String(Math.floor(1 + Math.random() * 999)).padStart(3, "0");
+        const element = String(Math.floor(Math.random() * 100000)).padStart(5, "0");
+        return `${serie}-${element}`;
+      }
+
+      function renderReels(finals = [0, 1, 2]) {
+        reels.forEach((reel, reelIndex) => {
+          const track = reel.querySelector(".track");
+          const ordered = Array.from({ length: 18 }, (_, index) => symbols[(index + reelIndex) % symbols.length]);
+          ordered[7] = symbols[finals[reelIndex] ?? reelIndex];
+          track.innerHTML = ordered.map((symbol) => `<div class="symbol">${symbol.html}</div>`).join("");
+          track.style.transform = `translateY(calc(var(--slot-reel-item-height) * -6))`;
+        });
+      }
+
+      function openTab(tabName) {
+        tabButtons.forEach((button) => {
+          const active = button.dataset.tab === tabName;
+          button.classList.toggle("active", active);
+          button.setAttribute("aria-selected", String(active));
+        });
+        panels.forEach((panel) => panel.classList.toggle("active", panel.dataset.panel === tabName));
+      }
+
+      function scrollToElement(target) {
+        window.requestAnimationFrame(() => {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+
+      function addNumber(code, store, amount, statusText = "gerado") {
+        const item = document.createElement("article");
+        item.className = "tile number-item";
+        item.innerHTML = `
+          <div>
+            <div class="number-code">${code}</div>
+            <p class="muted">${store} · ${amount}</p>
+          </div>
+          <span class="pill demo">${statusText}</span>
+        `;
+        numberList.prepend(item);
+        demoNumbersCount += 1;
+        walletNumbers.textContent = demoNumbersCount;
+      }
+
+      purchaseForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const code = fakeLuckyNumber();
+        const store = document.querySelector("#store").value;
+        const amount = document.querySelector("#amount").value || demoConfig.purchase.defaultAmount;
+        generatedNumber.textContent = code;
+        purchaseResult.classList.add("visible");
+        walletTotal.textContent = demoConfig.wallet.totalPurchases;
+        addNumber(code, store, amount);
+      });
+
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", (event) => {
+          if (anchor.dataset.openTab) openTab(anchor.dataset.openTab);
+          const target = document.querySelector(anchor.getAttribute("href"));
+          if (!target) return;
+          event.preventDefault();
+          scrollToElement(target);
+        });
+      });
+
+      tabButtons.forEach((button) => button.addEventListener("click", () => {
+        openTab(button.dataset.tab);
+        const target = document.querySelector(button.dataset.tab === "game" ? "#slot" : "#abas");
+        if (target) scrollToElement(target);
+      }));
+
+      function spinSlot() {
+        if (slotLocked) return;
+        slotLocked = true;
+        const outcome = nextSlotOutcome;
+        spinButton.disabled = true;
+        slotPhase.textContent = "Girando...";
+        slotResult.innerHTML = `
+          <span class="pill demo">Girando</span>
+          <h3>As marcas estão girando...</h3>
+          <p class="muted">Boa sorte!</p>
+        `;
+        reels.forEach((reel) => reel.classList.add("spinning"));
+        const base = Math.floor(Math.random() * symbols.length);
+        const finalIndexes = outcome === "win" ? [base, base, base] : [base, (base + 1) % symbols.length, (base + 3) % symbols.length];
+
+        window.setTimeout(() => {
+          reels.forEach((reel) => reel.classList.remove("spinning"));
+          renderReels(finalIndexes);
+          const code = fakeLuckyNumber();
+          slotPhase.textContent = outcome === "win" ? "Você ganhou" : "Não foi desta vez";
+          if (outcome === "win") {
+            slotResult.innerHTML = `
+              <span class="pill valid">Parabéns</span>
+              <h3>${demoConfig.game.winPrize}</h3>
+              <p class="muted">Número da sorte gerado nesta rodada:</p>
+              <div class="lucky-number">${code}</div>
+            `;
+            addNumber(code, "Jogo da campanha", demoConfig.game.winPrize);
+          } else {
+            slotResult.innerHTML = `
+              <span class="pill review">Rodada concluída</span>
+              <h3>Não foi desta vez</h3>
+              <p class="muted">Número da sorte gerado nesta rodada:</p>
+              <div class="lucky-number">${code}</div>
+            `;
+            addNumber(code, "Jogo da campanha", "Rodada concluída");
+          }
+          nextSlotOutcome = outcome === "win" ? "lose" : "win";
+          spinButton.textContent = "Girar novamente";
+          spinButton.disabled = false;
+          slotLocked = false;
+        }, 2400);
+      }
+
+      function resetSlot() {
+        if (slotLocked) return;
+        renderReels();
+        slotPhase.textContent = "Pronto para girar";
+        slotResult.innerHTML = `
+          <span class="pill demo">Pronto para jogar</span>
+          <h3>Gire as marcas para revelar sua rodada.</h3>
+          <p class="muted">A cada giro, um número da sorte é gerado.</p>
+        `;
+      }
+
+      spinButton.addEventListener("click", spinSlot);
+      resetButton.addEventListener("click", resetSlot);
+      renderReels();
+    </script>
+  </body>
+</html>
