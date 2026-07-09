@@ -9,7 +9,13 @@
 !comunic/index.html
 !comunic/assets/
 !comunic/assets/**
+!fabrica-landing-page/
+!fabrica-landing-page/*.md
 !bella-capri/
 !bella-capri/index.html
 !bella-capri/assets/
 !bella-capri/assets/**
+!alexakis/
+!alexakis/index.html
+!alexakis/assets/
+!alexakis/assets/**
