@@ -214,9 +214,32 @@
       }
 
       .support-copy {
-        color: rgba(255, 255, 255, 0.74);
+        display: grid;
+        gap: 10px;
         margin-top: 18px;
         max-width: 56ch;
+      }
+
+      .support-line {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        color: rgba(255, 255, 255, 0.78);
+        line-height: 1.62;
+        padding: 12px 14px;
+      }
+
+      .support-line strong {
+        color: #fff;
+        font-weight: 900;
+      }
+
+      .support-line.premia {
+        background: rgba(200, 147, 59, 0.12);
+        border-color: rgba(243, 223, 184, 0.26);
+      }
+
+      .support-line.premia strong {
+        color: var(--gold-soft);
       }
 
       .actions {
@@ -240,7 +263,9 @@
       }
 
       .btn-secondary {
-        border: 1px solid rgba(255, 255, 255, 0.28);
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.42);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
         color: #fff;
       }
 
@@ -340,10 +365,26 @@
       }
 
       .mockup-link {
+        align-items: center;
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(22, 61, 92, 0.18);
         color: var(--blue);
+        display: inline-flex;
         flex: 0 0 auto;
-        font-size: 0.88rem;
+        font-size: 0.84rem;
         font-weight: 900;
+        gap: 8px;
+        min-height: 38px;
+        padding: 0 14px;
+      }
+
+      .mockup-link::after {
+        border-right: 2px solid currentColor;
+        border-top: 2px solid currentColor;
+        content: "";
+        height: 7px;
+        transform: translateY(1px) rotate(45deg);
+        width: 7px;
       }
 
       .phone-device {
@@ -616,12 +657,11 @@
         }
 
         .mockup-header {
-          align-items: flex-start;
-          flex-direction: column;
+          justify-content: center;
         }
 
         .mockup-link {
-          width: 100%;
+          width: auto;
         }
 
         .phone-device {
@@ -666,14 +706,15 @@
 
         <div class="hero-grid">
           <div>
-            <span class="eyebrow">Campanhas promocionais digitais</span>
-            <h1>Uma ideia visual para campanhas promocionais digitais</h1>
+            <span class="eyebrow">Campanhas promocionais</span>
+            <h1>Solução para campanhas promocionais</h1>
             <p class="lead">
-              Um mockup navegável para visualizar uma campanha promocional digital no celular.
+              Preparamos uma experiência digital com cupons, números da sorte e prêmios instantâneos pelo celular.
             </p>
-            <p class="support-copy">
-              A Comunic lidera estratégia, criação e relacionamento. O Premia Flow entra como apoio operacional quando fizer sentido.
-            </p>
+            <div class="support-copy" aria-label="Papéis da parceria">
+              <p class="support-line"><strong>Comunic:</strong> lidera estratégia, criação e relacionamento.</p>
+              <p class="support-line premia"><strong>Premia Flow:</strong> entra como apoio operacional e cuida da estruturação regulatória, com profissionais especializados, documentação gerada pela plataforma e registros auditáveis.</p>
+            </div>
             <div class="actions">
               <a class="btn btn-primary" href="#demonstracao">Ver demonstração</a>
               <a class="btn btn-secondary" href="../rio-preto-shopping/" target="_blank" rel="noopener">Abrir mockup em nova aba</a>
@@ -696,7 +737,7 @@
 
           <div class="mockup-shell">
             <div class="mockup-header">
-              <a class="mockup-link" href="../rio-preto-shopping/" target="_blank" rel="noopener">Abrir em nova aba</a>
+              <a class="mockup-link" href="../rio-preto-shopping/" target="_blank" rel="noopener">Abrir mockup em nova aba</a>
             </div>
             <div class="phone-device" aria-label="Mockup exibido em moldura de smartphone">
               <div class="phone-button" aria-hidden="true"></div>
@@ -722,7 +763,7 @@
         <div class="wrap">
           <div class="section-head">
             <div>
-              <span class="kicker">Divisão leve</span>
+              <span class="kicker">Como funciona</span>
               <h2>Comunic + Premia Flow</h2>
             </div>
           </div>
@@ -740,10 +781,11 @@
             <article class="role-card">
               <h3>Premia Flow</h3>
               <ul>
-                <li>experiência digital</li>
-                <li>cupons/números da sorte</li>
-                <li>painel</li>
-                <li>rastreabilidade</li>
+                <li>experiência mobile</li>
+                <li>cupons e números da sorte</li>
+                <li>prêmios instantâneos</li>
+                <li>acompanhamento da campanha</li>
+                <li>organização dos registros</li>
               </ul>
             </article>
           </div>
@@ -783,6 +825,9 @@
               href="mailto:contato@premiaflow.com.br?subject=Premia%20Flow%20%7C%20Demonstra%C3%A7%C3%A3o%20visual"
             >
               Responder por e-mail
+            </a>
+            <a class="btn btn-secondary" href="https://wa.me/5511915057887" target="_blank" rel="noopener">
+              Chamar no WhatsApp
             </a>
           </div>
         </div>
