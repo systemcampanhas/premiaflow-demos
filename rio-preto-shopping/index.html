@@ -164,7 +164,7 @@
       .pill.review { background: #eaf4ff; color: #2b6495; }
       .pill.demo { background: #fff7df; color: #765312; }
       .number-item { align-items: center; display: grid; gap: 12px; grid-template-columns: 1fr auto; }
-      .slot { background: linear-gradient(145deg, #17142f, #211c46); border: 1px solid rgba(240, 192, 64, 0.34); border-radius: 30px; color: #f8f5ef; overflow: hidden; padding: clamp(18px, 3vw, 28px); }
+      .slot { background: linear-gradient(145deg, #17142f, #211c46); border: 1px solid rgba(240, 192, 64, 0.34); border-radius: 30px; color: #f8f5ef; overflow: hidden; padding: clamp(18px, 3vw, 28px); scroll-margin-block: 18vh; }
       .slot-top { align-items: center; display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; margin-bottom: 16px; }
       .reels { background: #0f0c22; border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; display: grid; gap: 8px; grid-template-columns: repeat(3, 1fr); padding: 12px; position: relative; }
       .reels::after { border-bottom: 2px solid rgba(240, 192, 64, 0.9); border-top: 2px solid rgba(240, 192, 64, 0.9); content: ""; height: var(--slot-reel-item-height); left: 12px; pointer-events: none; position: absolute; right: 12px; top: calc(12px + var(--slot-reel-item-height)); }
@@ -175,8 +175,13 @@
       .brand-tile { align-items: center; background: #fff; border-radius: 14px; display: flex; height: calc(var(--slot-reel-item-height) - 10px); justify-content: center; overflow: hidden; padding: 5px; width: 100%; }
       .brand-tile img { border-radius: 10px; display: block; height: 100%; max-height: 100%; max-width: 100%; object-fit: contain; width: 100%; }
       @keyframes slot-spin { from { transform: translateY(0); } to { transform: translateY(calc(var(--slot-reel-item-height) * -6)); } }
-      .slot-status { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 22px; margin-top: 16px; padding: 16px; }
-      .slot-actions { flex-wrap: wrap; margin-top: 16px; }
+      .slot-status { align-items: center; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 22px; display: flex; gap: 12px; justify-content: space-between; margin-top: 16px; min-height: 58px; padding: 12px 14px; }
+      .slot-status h3, .slot-status p { margin: 0; }
+      .slot-status h3 { font-size: 1rem; line-height: 1.2; }
+      .slot-status .lucky-number { font-size: clamp(1.12rem, 6vw, 1.6rem); }
+      .slot-primary-action { display: flex; margin-top: 14px; }
+      .slot-primary-action .btn { width: 100%; }
+      .slot-actions { flex-wrap: wrap; margin-top: 12px; }
       summary { color: var(--text); cursor: pointer; font-weight: 900; }
       @media (max-width: 860px) {
         .page { padding: 0; }
@@ -186,7 +191,7 @@
       }
       @media (max-width: 560px) {
         :root { --slot-reel-item-height: 78px; }
-        .nav, .actions, .slot-actions { width: 100%; }
+        .nav, .actions, .slot-actions, .slot-primary-action { width: 100%; }
         .nav a, .btn, .tab { width: 100%; }
         .form-grid, .metrics { grid-template-columns: 1fr; }
         .number-item { align-items: start; grid-template-columns: 1fr; }
@@ -273,9 +278,8 @@
 
         <section class="section" id="slot" data-panel="game">
           <span class="badge">Experiência especial</span>
-          <h2>Gire as marcas do shopping</h2>
-          <p class="muted">A cada rodada, o cliente gira as marcas participantes. Quando ganha, o prêmio exibido é Vale-compras R$ 300,00.</p>
-          <div class="slot">
+          <h2>Gire as marcas</h2>
+          <div class="slot" id="slot-play-area">
             <div class="slot-top">
               <span class="badge">Jogo da campanha</span>
               <span id="slot-phase">Pronto para girar</span>
@@ -285,14 +289,15 @@
               <div class="reel"><div class="track"></div></div>
               <div class="reel"><div class="track"></div></div>
             </div>
+            <div class="slot-primary-action">
+              <button class="btn primary" id="spin-slot" type="button">Girar agora</button>
+            </div>
             <div class="slot-status" id="slot-result" aria-live="polite">
-              <span class="pill demo">Pronto para jogar</span>
-              <h3>Gire as marcas para revelar sua rodada.</h3>
-              <p class="muted">A cada giro, um número da sorte é gerado.</p>
+              <span class="pill demo">Pronto</span>
+              <h3>Toque para girar</h3>
             </div>
             <div class="slot-actions">
               <a class="btn secondary" href="#abas" data-open-tab="journey">Voltar</a>
-              <button class="btn primary" id="spin-slot" type="button">Girar agora</button>
               <button class="btn secondary" id="reset-slot" type="button">Jogar novamente</button>
               <a class="btn secondary" href="#numeros" data-open-tab="journey">Ver meus números</a>
             </div>
@@ -462,9 +467,9 @@
         panels.forEach((panel) => panel.classList.toggle("active", panel.dataset.panel === tabName));
       }
 
-      function scrollToElement(target) {
+      function scrollToElement(target, block = "start") {
         window.requestAnimationFrame(() => {
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          target.scrollIntoView({ behavior: "smooth", block });
         });
       }
 
@@ -497,17 +502,20 @@
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", (event) => {
           if (anchor.dataset.openTab) openTab(anchor.dataset.openTab);
-          const target = document.querySelector(anchor.getAttribute("href"));
+          const target =
+            anchor.dataset.openTab === "game"
+              ? document.querySelector("#slot-play-area")
+              : document.querySelector(anchor.getAttribute("href"));
           if (!target) return;
           event.preventDefault();
-          scrollToElement(target);
+          scrollToElement(target, anchor.dataset.openTab === "game" ? "center" : "start");
         });
       });
 
       tabButtons.forEach((button) => button.addEventListener("click", () => {
         openTab(button.dataset.tab);
-        const target = document.querySelector(button.dataset.tab === "game" ? "#slot" : "#abas");
-        if (target) scrollToElement(target);
+        const target = document.querySelector(button.dataset.tab === "game" ? "#slot-play-area" : "#abas");
+        if (target) scrollToElement(target, button.dataset.tab === "game" ? "center" : "start");
       }));
 
       function spinSlot() {
@@ -518,8 +526,7 @@
         slotPhase.textContent = "Girando...";
         slotResult.innerHTML = `
           <span class="pill demo">Girando</span>
-          <h3>As marcas estão girando...</h3>
-          <p class="muted">Boa sorte!</p>
+          <h3>Boa sorte</h3>
         `;
         reels.forEach((reel) => reel.classList.add("spinning"));
         const base = Math.floor(Math.random() * symbols.length);
@@ -533,17 +540,19 @@
           if (outcome === "win") {
             slotResult.innerHTML = `
               <span class="pill valid">Parabéns</span>
-              <h3>${demoConfig.game.winPrize}</h3>
-              <p class="muted">Número da sorte gerado nesta rodada:</p>
-              <div class="lucky-number">${code}</div>
+              <div>
+                <h3>${demoConfig.game.winPrize}</h3>
+                <div class="lucky-number">${code}</div>
+              </div>
             `;
             addNumber(code, "Jogo da campanha", demoConfig.game.winPrize);
           } else {
             slotResult.innerHTML = `
-              <span class="pill review">Rodada concluída</span>
-              <h3>Não foi desta vez</h3>
-              <p class="muted">Número da sorte gerado nesta rodada:</p>
-              <div class="lucky-number">${code}</div>
+              <span class="pill review">Concluído</span>
+              <div>
+                <h3>Número gerado</h3>
+                <div class="lucky-number">${code}</div>
+              </div>
             `;
             addNumber(code, "Jogo da campanha", "Rodada concluída");
           }
@@ -559,9 +568,8 @@
         renderReels();
         slotPhase.textContent = "Pronto para girar";
         slotResult.innerHTML = `
-          <span class="pill demo">Pronto para jogar</span>
-          <h3>Gire as marcas para revelar sua rodada.</h3>
-          <p class="muted">A cada giro, um número da sorte é gerado.</p>
+          <span class="pill demo">Pronto</span>
+          <h3>Toque para girar</h3>
         `;
       }
 

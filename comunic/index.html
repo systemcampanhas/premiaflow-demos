@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Comunic + Premia Flow | Parceria para campanhas promocionais digitais</title>
+    <title>Comunic | Demonstração visual Premia Flow</title>
     <meta
       name="description"
-      content="Proposta de parceria B2B entre Comunic e Premia Flow para campanhas promocionais digitais com infraestrutura tecnológica, operacional e regulatória."
+      content="Demonstração visual leve do Premia Flow para campanhas promocionais digitais apresentadas por agências."
     />
     <link
       rel="icon"
@@ -15,7 +15,7 @@
     <style>
       :root {
         --ink: #172033;
-        --muted: #5c6778;
+        --muted: #647184;
         --paper: #f7f3ec;
         --paper-strong: #fffaf2;
         --charcoal: #111827;
@@ -25,7 +25,7 @@
         --gold-soft: #f3dfb8;
         --rose: #a95d57;
         --line: rgba(23, 32, 51, 0.14);
-        --line-light: rgba(255, 255, 255, 0.18);
+        --line-light: rgba(255, 255, 255, 0.2);
         --shadow: 0 24px 70px rgba(17, 24, 39, 0.16);
         color: var(--ink);
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -50,11 +50,6 @@
         text-decoration: none;
       }
 
-      button,
-      a {
-        -webkit-tap-highlight-color: transparent;
-      }
-
       h1,
       h2,
       h3,
@@ -70,17 +65,17 @@
 
       h1 {
         color: #fff;
-        font-size: clamp(2.55rem, 7vw, 5.6rem);
-        line-height: 0.96;
-        margin-bottom: 24px;
-        max-width: 11.8ch;
+        font-size: clamp(2.35rem, 6vw, 5rem);
+        line-height: 1;
+        margin-bottom: 22px;
+        max-width: 12ch;
       }
 
       h2 {
         color: var(--charcoal);
-        font-size: clamp(2rem, 4vw, 3.3rem);
-        line-height: 1.04;
-        margin-bottom: 16px;
+        font-size: clamp(1.9rem, 4vw, 3rem);
+        line-height: 1.06;
+        margin-bottom: 14px;
       }
 
       h3 {
@@ -94,10 +89,6 @@
         margin-bottom: 0;
       }
 
-      .page {
-        overflow: hidden;
-      }
-
       .wrap {
         margin: 0 auto;
         max-width: 1180px;
@@ -106,16 +97,16 @@
 
       .hero {
         background:
-          linear-gradient(110deg, rgba(17, 24, 39, 0.94), rgba(18, 60, 56, 0.88) 50%, rgba(22, 61, 92, 0.74)),
+          linear-gradient(110deg, rgba(17, 24, 39, 0.94), rgba(18, 60, 56, 0.88) 52%, rgba(22, 61, 92, 0.72)),
           url("./assets/comunic-parceria-premia-flow.png") center / cover;
         color: #fff;
-        min-height: 92vh;
-        padding: 22px 0 clamp(52px, 7vw, 86px);
+        min-height: 86vh;
+        padding: 22px 0 clamp(50px, 7vw, 84px);
         position: relative;
       }
 
       .hero::after {
-        background: linear-gradient(180deg, transparent, rgba(247, 243, 236, 0.96));
+        background: linear-gradient(180deg, transparent, var(--paper));
         bottom: -1px;
         content: "";
         height: 96px;
@@ -125,20 +116,24 @@
         right: 0;
       }
 
-      .topbar {
+      .topbar,
+      .brand,
+      .nav,
+      .actions,
+      .footer .wrap {
         align-items: center;
         display: flex;
-        gap: 18px;
+        gap: 12px;
+      }
+
+      .topbar {
         justify-content: space-between;
-        margin-bottom: clamp(58px, 11vw, 118px);
+        margin-bottom: clamp(58px, 10vw, 112px);
         position: relative;
         z-index: 1;
       }
 
       .brand {
-        align-items: center;
-        display: inline-flex;
-        gap: 12px;
         min-width: 0;
       }
 
@@ -147,6 +142,7 @@
         background: rgba(255, 255, 255, 0.12);
         border: 1px solid rgba(255, 255, 255, 0.26);
         display: inline-flex;
+        flex: 0 0 auto;
         height: 46px;
         justify-content: center;
         width: 46px;
@@ -177,53 +173,55 @@
       }
 
       .nav {
-        align-items: center;
-        display: flex;
         flex-wrap: wrap;
-        gap: 8px;
         justify-content: flex-end;
       }
 
       .nav a {
         border: 1px solid rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.84);
+        color: rgba(255, 255, 255, 0.86);
         font-size: 0.9rem;
         font-weight: 800;
         min-height: 42px;
         padding: 10px 14px;
       }
 
-      .hero-content {
+      .hero-grid {
+        align-items: end;
         display: grid;
         gap: 34px;
-        grid-template-columns: minmax(0, 0.94fr) minmax(300px, 0.62fr);
+        grid-template-columns: minmax(0, 0.78fr);
         position: relative;
         z-index: 1;
       }
 
-      .eyebrow {
+      .eyebrow,
+      .kicker {
         color: var(--gold-soft);
         display: inline-flex;
-        font-size: 0.78rem;
+        font-size: 0.76rem;
         font-weight: 900;
         letter-spacing: 0.12em;
-        margin-bottom: 20px;
+        margin-bottom: 18px;
         text-transform: uppercase;
       }
 
       .lead {
         color: rgba(255, 255, 255, 0.83);
-        font-size: clamp(1.05rem, 2vw, 1.24rem);
+        font-size: clamp(1.02rem, 2vw, 1.2rem);
         line-height: 1.72;
         max-width: 58ch;
       }
 
+      .support-copy {
+        color: rgba(255, 255, 255, 0.74);
+        margin-top: 18px;
+        max-width: 56ch;
+      }
+
       .actions {
-        align-items: center;
-        display: flex;
         flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 30px;
+        margin-top: 28px;
       }
 
       .btn {
@@ -242,50 +240,32 @@
       }
 
       .btn-secondary {
-        border: 1px solid rgba(255, 255, 255, 0.26);
+        border: 1px solid rgba(255, 255, 255, 0.28);
         color: #fff;
       }
 
-      .hero-note {
-        align-self: end;
+      .soft-note {
         background: rgba(17, 24, 39, 0.62);
         border: 1px solid rgba(255, 255, 255, 0.18);
         box-shadow: var(--shadow);
         padding: 22px;
       }
 
-      .hero-note small {
+      .soft-note strong {
         color: var(--gold-soft);
         display: block;
-        font-weight: 900;
-        letter-spacing: 0.11em;
+        font-size: 0.82rem;
+        letter-spacing: 0.1em;
         margin-bottom: 10px;
         text-transform: uppercase;
       }
 
-      .hero-note p {
-        color: rgba(255, 255, 255, 0.82);
-      }
-
-      .statement {
-        background: var(--paper);
-        padding: clamp(34px, 5vw, 56px) 0 0;
-      }
-
-      .statement-box {
-        background: #fff;
-        border: 1px solid var(--line);
-        border-left: 5px solid var(--gold);
-        box-shadow: 0 16px 44px rgba(17, 24, 39, 0.08);
-        color: var(--charcoal);
-        font-size: clamp(1.55rem, 3vw, 2.7rem);
-        font-weight: 850;
-        line-height: 1.12;
-        padding: clamp(24px, 4vw, 38px);
+      .soft-note p {
+        color: rgba(255, 255, 255, 0.78);
       }
 
       .section {
-        padding: clamp(58px, 8vw, 96px) 0;
+        padding: clamp(56px, 8vw, 92px) 0;
       }
 
       .section.alt {
@@ -306,33 +286,177 @@
         align-items: end;
         display: grid;
         gap: 22px;
-        grid-template-columns: minmax(0, 0.8fr) minmax(280px, 0.62fr);
+        grid-template-columns: minmax(0, 0.8fr) minmax(280px, 0.58fr);
         margin-bottom: 28px;
       }
 
-      .section-kicker {
+      .section .kicker {
         color: var(--rose);
-        display: inline-flex;
-        font-size: 0.74rem;
-        font-weight: 950;
-        letter-spacing: 0.13em;
-        margin-bottom: 14px;
-        text-transform: uppercase;
       }
 
-      .section.dark .section-kicker {
+      .section.dark .kicker {
         color: var(--gold-soft);
       }
 
       .text {
         color: var(--muted);
-        font-size: 1.05rem;
-        line-height: 1.75;
+        font-size: 1.03rem;
+        line-height: 1.72;
       }
 
       .section.dark .text,
-      .section.dark .muted {
-        color: rgba(255, 255, 255, 0.7);
+      .section.dark li {
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      .mockup-shell {
+        background:
+          radial-gradient(circle at 50% 48%, rgba(22, 61, 92, 0.16), transparent 34%),
+          radial-gradient(circle at 52% 52%, rgba(200, 147, 59, 0.16), transparent 28%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.76));
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        display: grid;
+        justify-items: center;
+        overflow: hidden;
+        padding: clamp(18px, 4vw, 34px);
+      }
+
+      .mockup-header {
+        align-items: center;
+        display: flex;
+        gap: 16px;
+        justify-content: flex-end;
+        margin-bottom: 16px;
+        max-width: 640px;
+        width: 100%;
+      }
+
+      .mockup-note {
+        color: var(--muted);
+        font-size: 0.95rem;
+        font-weight: 750;
+      }
+
+      .mockup-link {
+        color: var(--blue);
+        flex: 0 0 auto;
+        font-size: 0.88rem;
+        font-weight: 900;
+      }
+
+      .phone-device {
+        background:
+          linear-gradient(90deg, rgba(255, 255, 255, 0.16), transparent 10%, transparent 90%, rgba(255, 255, 255, 0.1)),
+          linear-gradient(145deg, #1d293b 0%, #070b14 36%, #02040a 68%, #24324a 100%),
+          #0c1220;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        border-radius: 52px;
+        box-shadow:
+          0 34px 78px rgba(17, 24, 39, 0.34),
+          0 10px 24px rgba(17, 24, 39, 0.22),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+          inset 0 0 0 7px rgba(0, 0, 0, 0.22);
+        padding: 16px;
+        position: relative;
+        width: min(360px, 100%);
+      }
+
+      .phone-device::before,
+      .phone-device::after {
+        background: linear-gradient(180deg, #111827, #050812);
+        border-radius: 999px;
+        content: "";
+        position: absolute;
+        width: 4px;
+      }
+
+      .phone-device::before {
+        height: 76px;
+        left: -5px;
+        top: 118px;
+      }
+
+      .phone-device::after {
+        height: 112px;
+        right: -5px;
+        top: 170px;
+      }
+
+      .phone-button {
+        background: linear-gradient(180deg, #111827, #050812);
+        border-radius: 999px;
+        height: 44px;
+        left: -5px;
+        position: absolute;
+        top: 214px;
+        width: 4px;
+      }
+
+      .phone-speaker {
+        background: #050812;
+        border-radius: 999px;
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+          0 1px 0 rgba(255, 255, 255, 0.16);
+        height: 22px;
+        left: 50%;
+        position: absolute;
+        top: 23px;
+        transform: translateX(-50%);
+        width: 96px;
+        z-index: 4;
+      }
+
+      .phone-camera {
+        background: radial-gradient(circle at 55% 45%, #31445f 0 22%, #07101e 38%, #02040a 70%);
+        border-radius: 999px;
+        height: 8px;
+        position: absolute;
+        right: calc(50% - 35px);
+        top: 30px;
+        width: 8px;
+        z-index: 5;
+      }
+
+      .phone-screen {
+        background: #0b2038;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 38px;
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+          inset 0 0 24px rgba(2, 6, 23, 0.08);
+        height: min(690px, 74vh);
+        min-height: 580px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .phone-screen::after {
+        background: linear-gradient(115deg, rgba(255, 255, 255, 0.22), transparent 24%, transparent 68%, rgba(255, 255, 255, 0.08));
+        content: "";
+        inset: 0;
+        pointer-events: none;
+        position: absolute;
+        z-index: 3;
+      }
+
+      .mockup-frame {
+        background: #fff;
+        border: 0;
+        display: block;
+        height: calc(100% - 18px);
+        position: relative;
+        transform: translateY(18px);
+        width: 100%;
+        z-index: 1;
+      }
+
+      .mockup-status {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-top: 12px;
       }
 
       .grid {
@@ -348,173 +472,78 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
-      .card {
-        background: rgba(255, 255, 255, 0.66);
+      .card,
+      .role-card {
+        background: rgba(255, 255, 255, 0.72);
         border: 1px solid var(--line);
         border-radius: 8px;
-        min-height: 132px;
         padding: 22px;
       }
 
-      .card p,
-      .muted {
+      .card p {
         color: var(--muted);
       }
 
-      .card-accent {
-        background: #fff;
-        border-top: 4px solid var(--gold);
-      }
-
-      .card-dark {
+      .role-card {
         background: rgba(255, 255, 255, 0.07);
-        border: 1px solid var(--line-light);
-        border-radius: 8px;
-        padding: 26px;
+        border-color: var(--line-light);
       }
 
-      .card-dark p,
-      .card-dark li {
-        color: rgba(255, 255, 255, 0.72);
-      }
-
-      .number {
-        color: var(--gold);
-        display: block;
-        font-size: 0.8rem;
-        font-weight: 950;
-        letter-spacing: 0.1em;
-        margin-bottom: 18px;
-        text-transform: uppercase;
-      }
-
-      .partner-grid {
-        align-items: stretch;
-      }
-
-      .flow-panel {
-        background: rgba(255, 255, 255, 0.07);
-        border: 1px solid var(--line-light);
-        border-radius: 8px;
-        margin-bottom: 18px;
-        padding: clamp(18px, 3vw, 28px);
-      }
-
-      .flow {
-        align-items: center;
-        display: grid;
-        gap: 8px;
-        justify-items: center;
-        text-align: center;
-      }
-
-      .flow-step {
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        color: #fff;
-        font-weight: 900;
-        max-width: 360px;
-        padding: 13px 18px;
-        width: 100%;
-      }
-
-      .flow-step.primary {
-        background: rgba(200, 147, 59, 0.18);
-        border-color: rgba(243, 223, 184, 0.42);
-        color: var(--gold-soft);
-      }
-
-      .flow-arrow {
-        color: var(--gold-soft);
-        font-size: 1.24rem;
-        font-weight: 950;
-        line-height: 1;
-      }
-
-      .partner-card {
-        display: flex;
-        flex-direction: column;
-        gap: 22px;
-        min-height: 100%;
-      }
-
-      .partner-title {
-        align-items: center;
-        display: flex;
-        gap: 12px;
-        justify-content: space-between;
-      }
-
-      .partner-title span {
-        border: 1px solid var(--line-light);
-        color: var(--gold-soft);
-        font-size: 0.74rem;
-        font-weight: 900;
-        letter-spacing: 0.11em;
-        padding: 7px 9px;
-        text-transform: uppercase;
-      }
-
-      ul {
+      .role-card ul,
+      .simple-list {
         list-style: none;
         margin: 0;
         padding: 0;
       }
 
-      li {
+      .role-card li {
         border-top: 1px solid rgba(255, 255, 255, 0.12);
-        padding: 13px 0;
+        padding: 11px 0;
       }
 
-      li:first-child {
+      .role-card li:first-child {
         border-top: 0;
         padding-top: 0;
       }
 
-      li:last-child {
-        padding-bottom: 0;
+      .roles-note {
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid var(--line-light);
+        border-left: 4px solid var(--gold);
+        border-radius: 8px;
+        margin-bottom: 16px;
+        padding: 20px;
       }
 
-      .apply-card {
-        align-items: flex-start;
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.74)),
-          linear-gradient(135deg, rgba(200, 147, 59, 0.2), rgba(22, 61, 92, 0.12));
-        flex-direction: column;
-        gap: 10px;
+      .simple-list {
         display: flex;
-        min-height: 154px;
+        flex-wrap: wrap;
+        gap: 10px;
       }
 
-      .apply-card p {
-        color: var(--muted);
+      .simple-list li {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--charcoal);
+        font-weight: 850;
+        padding: 10px 14px;
       }
 
-      .credibility .card {
-        min-height: 112px;
-      }
-
-      .pilot {
+      .final-cta {
         background:
           linear-gradient(135deg, rgba(18, 60, 56, 0.96), rgba(17, 24, 39, 0.96)),
           url("./assets/comunic-parceria-premia-flow.png") center / cover;
         color: #fff;
-        padding: clamp(54px, 7vw, 82px) 0;
       }
 
-      .pilot-box {
-        display: grid;
-        gap: 28px;
-        grid-template-columns: minmax(0, 0.86fr) auto;
-      }
-
-      .pilot h2 {
+      .final-cta h2 {
         color: #fff;
       }
 
-      .pilot .text {
+      .final-cta .text {
         color: rgba(255, 255, 255, 0.74);
-        max-width: 68ch;
+        max-width: 64ch;
       }
 
       .footer {
@@ -524,9 +553,6 @@
       }
 
       .footer .wrap {
-        align-items: center;
-        display: flex;
-        gap: 18px;
         justify-content: space-between;
       }
 
@@ -535,10 +561,6 @@
       }
 
       @media (max-width: 900px) {
-        .hero {
-          min-height: auto;
-        }
-
         .topbar,
         .footer .wrap {
           align-items: flex-start;
@@ -549,16 +571,16 @@
           justify-content: flex-start;
         }
 
-        .hero-content,
+        .hero-grid,
         .section-head,
-        .pilot-box,
         .grid-2,
         .grid-3 {
           grid-template-columns: 1fr;
         }
 
-        .hero-note {
-          align-self: auto;
+        .phone-screen {
+          height: 690px;
+          min-height: 600px;
         }
       }
 
@@ -568,6 +590,7 @@
         }
 
         .hero {
+          min-height: auto;
           padding-top: 16px;
         }
 
@@ -588,273 +611,194 @@
           width: 100%;
         }
 
-        .card,
-        .card-dark {
-          min-height: auto;
-          padding: 20px;
+        .mockup-shell {
+          padding: 14px 10px;
         }
 
-        .statement-box {
-          font-size: 1.45rem;
+        .mockup-header {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .mockup-link {
+          width: 100%;
+        }
+
+        .phone-device {
+          border-radius: 40px;
+          padding: 12px;
+          width: min(100%, 360px);
+        }
+
+        .phone-screen {
+          border-radius: 30px;
+          height: 620px;
+          min-height: 560px;
+        }
+
+        .simple-list li {
+          width: 100%;
         }
       }
     </style>
   </head>
   <body>
-    <div class="page">
-      <header class="hero" id="inicio">
-        <div class="wrap">
-          <div class="topbar">
-            <a class="brand" href="#inicio" aria-label="Voltar ao início">
-              <span class="brand-mark" aria-hidden="true">
-                <svg viewBox="0 0 48 48" fill="none" role="img">
-                  <path d="M10 30.5V17.5L24 9.5L38 17.5V30.5L24 38.5L10 30.5Z" stroke="#f3dfb8" stroke-width="3" />
-                  <path d="M16 24H32M24 16V32" stroke="#ffffff" stroke-width="3" stroke-linecap="square" />
-                </svg>
-              </span>
-              <span class="brand-copy">
-                <strong>Comunic + Premia Flow</strong>
-                <span>Parceria B2B</span>
-              </span>
-            </a>
-            <nav class="nav" aria-label="Navegação principal">
-              <a href="#sentido">Por que faz sentido</a>
-              <a href="#parceria">Como funciona</a>
-              <a href="#piloto">Proposta piloto</a>
-            </nav>
+    <header class="hero" id="inicio">
+      <div class="wrap">
+        <div class="topbar">
+          <a class="brand" href="#inicio" aria-label="Voltar ao início">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" role="img">
+                <path d="M10 30.5V17.5L24 9.5L38 17.5V30.5L24 38.5L10 30.5Z" stroke="#f3dfb8" stroke-width="3" />
+                <path d="M16 24H32M24 16V32" stroke="#ffffff" stroke-width="3" stroke-linecap="square" />
+              </svg>
+            </span>
+            <span class="brand-copy">
+              <strong>Comunic + Premia Flow</strong>
+              <span>Demonstração visual</span>
+            </span>
+          </a>
+          <nav class="nav" aria-label="Navegação principal">
+            <a href="#demonstracao">Demonstração</a>
+            <a href="#conversar">Conversar</a>
+          </nav>
+        </div>
+
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow">Campanhas promocionais digitais</span>
+            <h1>Uma ideia visual para campanhas promocionais digitais</h1>
+            <p class="lead">
+              Um mockup navegável para visualizar uma campanha promocional digital no celular.
+            </p>
+            <p class="support-copy">
+              A Comunic lidera estratégia, criação e relacionamento. O Premia Flow entra como apoio operacional quando fizer sentido.
+            </p>
+            <div class="actions">
+              <a class="btn btn-primary" href="#demonstracao">Ver demonstração</a>
+              <a class="btn btn-secondary" href="../rio-preto-shopping/" target="_blank" rel="noopener">Abrir mockup em nova aba</a>
+            </div>
           </div>
 
-          <div class="hero-content">
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section alt" id="demonstracao">
+        <div class="wrap">
+          <div class="section-head">
             <div>
-              <span class="eyebrow">Campanhas promocionais digitais</span>
-              <h1>Transforme campanhas promocionais em um novo serviço da Comunic</h1>
-              <p class="lead">
-                Enquanto a Comunic continua liderando estratégia, criação e relacionamento, o Premia Flow fornece a infraestrutura para operar campanhas promocionais digitais com mais organização, rastreabilidade e escala.
-              </p>
-              <div class="actions">
-                <a class="btn btn-primary" href="#piloto">Conhecer proposta de parceria</a>
-                <a class="btn btn-secondary" href="#parceria">Ver divisão de papéis</a>
+              <span class="kicker">Demonstração</span>
+              <h2>Experiência mobile</h2>
+            </div>
+          </div>
+
+          <div class="mockup-shell">
+            <div class="mockup-header">
+              <a class="mockup-link" href="../rio-preto-shopping/" target="_blank" rel="noopener">Abrir em nova aba</a>
+            </div>
+            <div class="phone-device" aria-label="Mockup exibido em moldura de smartphone">
+              <div class="phone-button" aria-hidden="true"></div>
+              <div class="phone-speaker" aria-hidden="true"></div>
+              <div class="phone-camera" aria-hidden="true"></div>
+              <div class="phone-screen">
+                <iframe
+                  class="mockup-frame"
+                  id="mockup-frame"
+                  src="../rio-preto-shopping/"
+                  title="Mockup navegável de campanha promocional digital"
+                  loading="lazy"
+                >
+                  O mockup não carregou neste navegador. Use o botão Abrir em nova aba para visualizar a demonstração.
+                </iframe>
               </div>
             </div>
-
-            <aside class="hero-note" aria-label="Posicionamento da parceria">
-              <small>Vocês continuam sendo a agência</small>
-              <p>
-                Nós entramos como infraestrutura tecnológica e operacional para viabilizar campanhas promocionais digitais sem exigir desenvolvimento próprio.
-              </p>
-            </aside>
           </div>
-        </div>
-      </header>
-
-      <section class="statement" aria-label="Mensagem central da proposta">
-        <div class="wrap">
-          <p class="statement-box">A Comunic pode ampliar sua oferta sem ampliar sua estrutura operacional.</p>
         </div>
       </section>
 
-      <main>
-        <section class="section" id="sentido">
-          <div class="wrap">
-            <div class="section-head">
-              <div>
-                <span class="section-kicker">Por que isso faz sentido</span>
-                <h2>Uma oferta nova, sem tirar a agência do centro da relação</h2>
-              </div>
-              <p class="text">
-                Agências já criam estratégia, comunicação, mídia e experiência de marca. Mas campanhas promocionais com sorteios, números da sorte, cadastro de participantes, apuração e rastreabilidade exigem uma camada operacional específica.
-              </p>
-            </div>
-
-            <div class="grid grid-3">
-              <article class="card card-accent">
-                <span class="number">01</span>
-                <h3>Novo produto comercial para a agência</h3>
-                <p>Campanhas promocionais digitais entram como uma frente de oferta para abrir novas conversas com clientes e prospects.</p>
-              </article>
-              <article class="card">
-                <span class="number">02</span>
-                <h3>Mais velocidade para vender campanhas</h3>
-                <p>A agência consegue apresentar uma solução mais concreta, com jornada digital e operação já desenhadas.</p>
-              </article>
-              <article class="card">
-                <span class="number">03</span>
-                <h3>Menos complexidade técnica</h3>
-                <p>Infraestrutura pronta para viabilizar projetos sem transformar cada campanha em um desenvolvimento sob medida.</p>
-              </article>
-              <article class="card">
-                <span class="number">04</span>
-                <h3>Operação digital estruturada</h3>
-                <p>Fluxos de cadastro, validação e acompanhamento ajudam a tornar a entrega mais previsível para todos os envolvidos.</p>
-              </article>
-              <article class="card">
-                <span class="number">05</span>
-                <h3>Experiência melhor para participantes</h3>
-                <p>Uma jornada clara pelo celular reduz atrito e aproxima a campanha da rotina do consumidor.</p>
-              </article>
-              <article class="card">
-                <span class="number">06</span>
-                <h3>Apoio à apuração e controle</h3>
-                <p>Registros e rastreabilidade dão mais organização para etapas críticas de conferência, acompanhamento e resultado.</p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section class="section dark" id="parceria">
-          <div class="wrap">
-            <div class="section-head">
-              <div>
-                <span class="section-kicker">Como a parceria funciona</span>
-                <h2>Dois papéis complementares na mesma entrega</h2>
-              </div>
-              <p class="text">
-                A divisão preserva o protagonismo estratégico da Comunic e posiciona o Premia Flow como apoio tecnológico, operacional e regulatório para executar campanhas completas.
-              </p>
-            </div>
-
-            <div class="flow-panel" aria-label="Fluxo comercial e operacional da parceria">
-              <div class="flow">
-                <div class="flow-step">Cliente</div>
-                <div class="flow-arrow" aria-hidden="true">↓</div>
-                <div class="flow-step primary">Comunic</div>
-                <div class="flow-arrow" aria-hidden="true">↓</div>
-                <div class="flow-step primary">Premia Flow</div>
-                <div class="flow-arrow" aria-hidden="true">↓</div>
-                <div class="flow-step">Campanha promocional operada</div>
-              </div>
-            </div>
-
-            <div class="grid grid-2 partner-grid">
-              <article class="card-dark partner-card">
-                <div class="partner-title">
-                  <h3>Comunic</h3>
-                  <span>Agência</span>
-                </div>
-                <ul>
-                  <li>estratégia</li>
-                  <li>criação</li>
-                  <li>mídia</li>
-                  <li>relacionamento com cliente</li>
-                  <li>direção da campanha</li>
-                </ul>
-              </article>
-
-              <article class="card-dark partner-card">
-                <div class="partner-title">
-                  <h3>Premia Flow</h3>
-                  <span>Operação</span>
-                </div>
-                <ul>
-                  <li>plataforma SaaS</li>
-                  <li>cadastro de participantes</li>
-                  <li>geração de cupons/números da sorte</li>
-                  <li>painel operacional</li>
-                  <li>rastreabilidade</li>
-                  <li>apoio à apuração</li>
-                </ul>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section class="section alt" id="aplicacoes">
-          <div class="wrap">
-            <div class="section-head">
-              <div>
-                <span class="section-kicker">Onde aplicar</span>
-                <h2>Perfis de cliente onde a Comunic já pode abrir conversa</h2>
-              </div>
-              <p class="text">
-                A parceria se adapta a campanhas sazonais, datas comerciais, ações de relacionamento, ativações com compra validada e projetos regionais com alta demanda por execução confiável.
-              </p>
-            </div>
-
-            <div class="grid grid-3">
-              <article class="card apply-card">
-                <h3>Shopping centers</h3>
-                <p>Campanhas de Natal, Dia das Mães, liquidações e ações de fluxo.</p>
-              </article>
-              <article class="card apply-card">
-                <h3>Redes de varejo</h3>
-                <p>Campanhas de compra premiada, giro de estoque e incentivo de recorrência.</p>
-              </article>
-              <article class="card apply-card">
-                <h3>Supermercados</h3>
-                <p>Promoções por compra, ticket médio, frequência e datas sazonais.</p>
-              </article>
-              <article class="card apply-card">
-                <h3>CDLs e associações comerciais</h3>
-                <p>Campanhas para fortalecer o comércio local e conectar empresas participantes.</p>
-              </article>
-              <article class="card apply-card">
-                <h3>Eventos e ativações</h3>
-                <p>Ações promocionais com cadastro digital, validação e acompanhamento.</p>
-              </article>
-              <article class="card apply-card">
-                <h3>Marcas regionais</h3>
-                <p>Projetos de relacionamento, engajamento e promoção com operação estruturada.</p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section class="section credibility" id="credibilidade">
-          <div class="wrap">
-            <div class="section-head">
-              <div>
-                <span class="section-kicker">Estrutura de campanha</span>
-                <h2>Uma solução pensada para campanhas reais</h2>
-              </div>
-              <p class="text">
-                O Premia Flow foi estruturado para apoiar campanhas promocionais com participantes, cupons, números da sorte, validações, rastreabilidade e apuração. A proposta é reduzir a complexidade operacional para que a agência consiga vender e liderar projetos com mais segurança.
-              </p>
-            </div>
-
-            <div class="grid grid-3">
-              <article class="card"><h3>Participantes</h3></article>
-              <article class="card"><h3>Cupons e números da sorte</h3></article>
-              <article class="card"><h3>Validações</h3></article>
-              <article class="card"><h3>Rastreabilidade</h3></article>
-              <article class="card"><h3>Apuração</h3></article>
-              <article class="card"><h3>Painel operacional</h3></article>
-            </div>
-          </div>
-        </section>
-
-        <section class="pilot" id="piloto">
-          <div class="wrap">
-            <div class="pilot-box">
-              <div>
-                <span class="section-kicker">Proposta piloto</span>
-                <h2>Validar um modelo simples antes de escalar a oferta</h2>
-                <p class="text">
-                  Uma primeira conversa pode validar um modelo simples: escolher um perfil de cliente, simular uma campanha promocional e avaliar como a Comunic poderia incorporar essa oferta ao seu portfólio.
-                </p>
-              </div>
-              <div class="actions">
-                <a
-                  class="btn btn-primary"
-                  href="mailto:contato@premiaflow.com.br?subject=Premia%20Flow%20%7C%20Conversa%20sobre%20possibilidades"
-                >
-                  Conversar sobre possibilidades
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer class="footer">
+      <section class="section dark" id="papeis">
         <div class="wrap">
-          <p><strong>Premia Flow</strong> — Plataforma para campanhas promocionais digitais.</p>
-          <p>Demo comercial para parceria com a Comunic.</p>
+          <div class="section-head">
+            <div>
+              <span class="kicker">Divisão leve</span>
+              <h2>Comunic + Premia Flow</h2>
+            </div>
+          </div>
+
+          <div class="grid grid-2">
+            <article class="role-card">
+              <h3>Comunic</h3>
+              <ul>
+                <li>estratégia</li>
+                <li>criação</li>
+                <li>relacionamento com cliente</li>
+                <li>mídia</li>
+              </ul>
+            </article>
+            <article class="role-card">
+              <h3>Premia Flow</h3>
+              <ul>
+                <li>experiência digital</li>
+                <li>cupons/números da sorte</li>
+                <li>painel</li>
+                <li>rastreabilidade</li>
+              </ul>
+            </article>
+          </div>
         </div>
-      </footer>
-    </div>
+      </section>
+
+      <section class="section alt" id="aplicacoes">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <span class="kicker">Possibilidades</span>
+              <h2>Quando pode fazer sentido</h2>
+            </div>
+          </div>
+
+          <ul class="simple-list">
+            <li>shopping centers</li>
+            <li>varejo</li>
+            <li>supermercados</li>
+            <li>CDLs</li>
+            <li>ações sazonais</li>
+            <li>ativações promocionais</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section final-cta" id="conversar">
+        <div class="wrap">
+          <span class="kicker">Próximo passo</span>
+          <h2>Faz sentido conversarmos?</h2>
+          <p class="text">
+            Se a ideia fizer sentido, podemos marcar uma conversa rápida.
+          </p>
+          <div class="actions">
+            <a
+              class="btn btn-primary"
+              href="mailto:contato@premiaflow.com.br?subject=Premia%20Flow%20%7C%20Demonstra%C3%A7%C3%A3o%20visual"
+            >
+              Responder por e-mail
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        <p><strong>Premia Flow</strong> — Plataforma para campanhas promocionais digitais.</p>
+        <p>Demonstração visual para a Comunic.</p>
+      </div>
+    </footer>
 
     <script>
       const links = document.querySelectorAll('a[href^="#"]');
+      const mockupFrame = document.querySelector("#mockup-frame");
 
       links.forEach((link) => {
         link.addEventListener("click", (event) => {
@@ -868,6 +812,7 @@
           target.scrollIntoView({ behavior: "smooth", block: "start" });
         });
       });
+      mockupFrame?.addEventListener("load", () => {});
     </script>
   </body>
 </html>
