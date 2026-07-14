@@ -169,6 +169,8 @@ Regras:
 - permitir arraste com mouse como gesto de dedo e exibir um indicador discreto de movimento;
 - preservar a posicao da landing ao acionar links internos do mockup;
 - destacar a acao `Jogar` quando o mockup possuir essa navegacao;
+- ao abrir `Jogar`, centralizar os rolos do jogo na tela do celular;
+- posicionar a acao `Girar agora` imediatamente abaixo dos rolos;
 - evitar mockup que confunda o posicionamento comercial;
 - confirmar autorizacao quando usar marcas reais ou demos de clientes existentes.
 

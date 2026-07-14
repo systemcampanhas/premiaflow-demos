@@ -171,7 +171,7 @@
       .number-item { align-items: center; display: grid; gap: 12px; grid-template-columns: 1fr auto; }
       .slot { background: linear-gradient(145deg, #17142f, #211c46); border: 1px solid rgba(240, 192, 64, 0.34); border-radius: 30px; color: #f8f5ef; overflow: hidden; padding: clamp(18px, 3vw, 28px); }
       .slot-top { align-items: center; display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; margin-bottom: 16px; }
-      .reels { background: #0f0c22; border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; display: grid; gap: 8px; grid-template-columns: repeat(3, 1fr); padding: 12px; position: relative; }
+      .reels { background: #0f0c22; border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; display: grid; gap: 8px; grid-template-columns: repeat(3, 1fr); padding: 12px; position: relative; scroll-margin-block: 18vh; }
       .reels::after { border-bottom: 2px solid rgba(240, 192, 64, 0.9); border-top: 2px solid rgba(240, 192, 64, 0.9); content: ""; height: var(--slot-reel-item-height); left: 12px; pointer-events: none; position: absolute; right: 12px; top: calc(12px + var(--slot-reel-item-height)); }
       .reel { background: linear-gradient(180deg, #fff, #ece9df); border-radius: 18px; height: calc(var(--slot-reel-item-height) * 3); overflow: hidden; position: relative; }
       .track { transform: translateY(calc(var(--slot-reel-item-height) * -6)); transition: transform 2.8s cubic-bezier(.12,.72,.08,1); }
@@ -181,6 +181,8 @@
       .brand-tile img { border-radius: 10px; display: block; height: 100%; max-height: 100%; max-width: 100%; object-fit: contain; width: 100%; }
       @keyframes slot-spin { from { transform: translateY(0); } to { transform: translateY(calc(var(--slot-reel-item-height) * -6)); } }
       .slot-status { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 22px; margin-top: 16px; padding: 16px; }
+      .slot-primary-action { display: flex; margin-top: 14px; }
+      .slot-primary-action .btn { width: 100%; }
       .slot-actions { flex-wrap: wrap; margin-top: 16px; }
       summary { color: var(--text); cursor: pointer; font-weight: 900; }
       @media (max-width: 860px) {
@@ -191,7 +193,7 @@
       }
       @media (max-width: 560px) {
         :root { --slot-reel-item-height: 78px; }
-        .nav, .actions, .slot-actions { width: 100%; }
+        .nav, .actions, .slot-actions, .slot-primary-action { width: 100%; }
         .nav a, .btn, .tab { width: 100%; }
         .form-grid, .metrics { grid-template-columns: 1fr; }
         .number-item { align-items: start; grid-template-columns: 1fr; }
@@ -285,10 +287,13 @@
               <span class="badge">Jogo da campanha</span>
               <span id="slot-phase">Pronto para girar</span>
             </div>
-            <div class="reels" aria-label="Jogo de marcas">
+            <div class="reels" id="slot-play-area" aria-label="Jogo de marcas">
               <div class="reel"><div class="track"></div></div>
               <div class="reel"><div class="track"></div></div>
               <div class="reel"><div class="track"></div></div>
+            </div>
+            <div class="slot-primary-action">
+              <button class="btn primary" id="spin-slot" type="button">Girar agora</button>
             </div>
             <div class="slot-status" id="slot-result" aria-live="polite">
               <span class="pill demo">Pronto para jogar</span>
@@ -297,7 +302,6 @@
             </div>
             <div class="slot-actions">
               <a class="btn secondary" href="#abas" data-open-tab="journey">Voltar</a>
-              <button class="btn primary" id="spin-slot" type="button">Girar agora</button>
               <button class="btn secondary" id="reset-slot" type="button">Jogar novamente</button>
               <a class="btn secondary" href="#numeros" data-open-tab="journey">Ver meus números</a>
             </div>
@@ -468,9 +472,9 @@
         panels.forEach((panel) => panel.classList.toggle("active", panel.dataset.panel === tabName));
       }
 
-      function scrollToElement(target) {
+      function scrollToElement(target, block = "start") {
         window.requestAnimationFrame(() => {
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          target.scrollIntoView({ behavior: "smooth", block });
         });
       }
 
@@ -503,17 +507,20 @@
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", (event) => {
           if (anchor.dataset.openTab) openTab(anchor.dataset.openTab);
-          const target = document.querySelector(anchor.getAttribute("href"));
+          const target =
+            anchor.dataset.openTab === "game"
+              ? document.querySelector("#slot-play-area")
+              : document.querySelector(anchor.getAttribute("href"));
           if (!target) return;
           event.preventDefault();
-          scrollToElement(target);
+          scrollToElement(target, anchor.dataset.openTab === "game" ? "center" : "start");
         });
       });
 
       tabButtons.forEach((button) => button.addEventListener("click", () => {
         openTab(button.dataset.tab);
-        const target = document.querySelector(button.dataset.tab === "game" ? "#slot" : "#abas");
-        if (target) scrollToElement(target);
+        const target = document.querySelector(button.dataset.tab === "game" ? "#slot-play-area" : "#abas");
+        if (target) scrollToElement(target, button.dataset.tab === "game" ? "center" : "start");
       }));
 
       function spinSlot() {
