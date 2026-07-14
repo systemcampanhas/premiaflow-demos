@@ -494,10 +494,107 @@
         z-index: 1;
       }
 
+      .drag-hint {
+        align-items: center;
+        animation: drag-hint-motion 1.35s ease-in-out 3;
+        background: rgba(7, 11, 20, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.56);
+        border-radius: 50%;
+        color: #fff;
+        display: flex;
+        font-size: 1.1rem;
+        font-weight: 900;
+        height: 38px;
+        justify-content: center;
+        pointer-events: none;
+        position: absolute;
+        right: 12px;
+        top: 48%;
+        transform: translateY(-50%);
+        transition: opacity 180ms ease;
+        width: 38px;
+        z-index: 5;
+      }
+
+      .drag-hint.hidden {
+        opacity: 0;
+      }
+
+      @keyframes drag-hint-motion {
+        0%,
+        100% {
+          transform: translateY(-50%);
+        }
+
+        50% {
+          transform: translateY(calc(-50% - 7px));
+        }
+      }
+
       .mockup-status {
         color: var(--muted);
         font-size: 0.9rem;
         margin-top: 12px;
+      }
+
+      .desktop-shell {
+        background:
+          radial-gradient(circle at 50% 44%, rgba(18, 60, 56, 0.14), transparent 36%),
+          radial-gradient(circle at 50% 62%, rgba(200, 147, 59, 0.13), transparent 30%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 243, 236, 0.86));
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        display: grid;
+        justify-items: center;
+        overflow: hidden;
+        padding: clamp(18px, 5vw, 46px);
+      }
+
+      .desktop-header {
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+        max-width: 1040px;
+        width: 100%;
+      }
+
+      .monitor-device {
+        aspect-ratio: 700 / 540;
+        max-width: 900px;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+      }
+
+      .monitor-image {
+        display: block;
+        height: auto;
+        left: -21.43%;
+        max-width: none;
+        position: absolute;
+        top: -5.56%;
+        width: 142.86%;
+      }
+
+      .monitor-screen {
+        background: #fff;
+        height: 63.72%;
+        left: 7.04%;
+        overflow: hidden;
+        position: absolute;
+        top: 5.64%;
+        width: 85.92%;
+        z-index: 2;
+      }
+
+      .desktop-frame {
+        background: #fff;
+        border: 0;
+        display: block;
+        height: 100%;
+        width: 100%;
       }
 
       .grid {
@@ -623,6 +720,7 @@
           height: 690px;
           min-height: 600px;
         }
+
       }
 
       @media (max-width: 560px) {
@@ -674,6 +772,14 @@
           border-radius: 30px;
           height: 620px;
           min-height: 560px;
+        }
+
+        .desktop-shell {
+          padding: 14px 10px 18px;
+        }
+
+        .desktop-header {
+          justify-content: center;
         }
 
         .simple-list li {
@@ -752,6 +858,40 @@
                   loading="lazy"
                 >
                   O mockup não carregou neste navegador. Use o botão Abrir em nova aba para visualizar a demonstração.
+                </iframe>
+                <span class="drag-hint" id="drag-hint" role="img" aria-label="Arraste para cima ou para baixo">↕</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="sistema">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <span class="kicker">Sistema</span>
+              <h2>Visão resumida do sistema</h2>
+            </div>
+            <p class="text">
+              Uma visão do ambiente de gestão e acompanhamento da campanha.
+            </p>
+          </div>
+
+          <div class="desktop-shell">
+            <div class="desktop-header">
+              <a class="mockup-link" href="../sistema-demo/" target="_blank" rel="noopener">Abrir painel em nova aba</a>
+            </div>
+            <div class="monitor-device" aria-label="Mockup exibido em moldura de monitor desktop">
+              <img class="monitor-image" src="assets/monitor-apple.jpg" alt="" aria-hidden="true" />
+              <div class="monitor-screen">
+                <iframe
+                  class="desktop-frame"
+                  src="../sistema-demo/"
+                  title="Mockup resumido do painel operacional Premia Flow"
+                  loading="lazy"
+                >
+                  O painel não carregou neste navegador. Use o botão Abrir painel em nova aba para visualizar a demonstração.
                 </iframe>
               </div>
             </div>
@@ -844,6 +984,7 @@
     <script>
       const links = document.querySelectorAll('a[href^="#"]');
       const mockupFrame = document.querySelector("#mockup-frame");
+      const dragHint = document.querySelector("#drag-hint");
 
       links.forEach((link) => {
         link.addEventListener("click", (event) => {
@@ -857,7 +998,157 @@
           target.scrollIntoView({ behavior: "smooth", block: "start" });
         });
       });
-      mockupFrame?.addEventListener("load", () => {});
+
+      function hideEmbeddedScrollbar(frame) {
+        try {
+          const frameDocument = frame.contentDocument;
+
+          if (!frameDocument?.head || frameDocument.querySelector("#premia-flow-hidden-scrollbar")) {
+            return;
+          }
+
+          const style = frameDocument.createElement("style");
+          style.id = "premia-flow-hidden-scrollbar";
+          style.textContent = `
+            html,
+            body {
+              cursor: grab;
+              scrollbar-width: none !important;
+              -ms-overflow-style: none !important;
+            }
+
+            html.premia-dragging,
+            html.premia-dragging * {
+              cursor: grabbing !important;
+              user-select: none !important;
+            }
+
+            .nav a[data-open-tab="game"] {
+              background: #f4c33f !important;
+              border-color: #f4c33f !important;
+              box-shadow: 0 10px 24px rgba(244, 195, 63, 0.24) !important;
+              color: #20170a !important;
+            }
+
+            .nav a[data-open-tab="game"]:hover,
+            .nav a[data-open-tab="game"]:focus-visible {
+              background: #ffd45f !important;
+              border-color: #ffd45f !important;
+            }
+
+            html::-webkit-scrollbar,
+            body::-webkit-scrollbar,
+            *::-webkit-scrollbar {
+              display: none !important;
+              height: 0 !important;
+              width: 0 !important;
+            }
+          `;
+          frameDocument.head.appendChild(style);
+
+          if (frameDocument.documentElement.dataset.premiaDragScroll === "true") {
+            return;
+          }
+
+          frameDocument.documentElement.dataset.premiaDragScroll = "true";
+
+          let dragging = false;
+          let moved = false;
+          let suppressClick = false;
+          let startX = 0;
+          let startY = 0;
+          let startScrollX = 0;
+          let startScrollY = 0;
+
+          function preserveLandingPosition() {
+            const parentScrollX = window.scrollX;
+            const parentScrollY = window.scrollY;
+            const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+            const startedAt = performance.now();
+
+            document.documentElement.style.scrollBehavior = "auto";
+
+            function restorePosition(timestamp) {
+              window.scrollTo(parentScrollX, parentScrollY);
+
+              if (timestamp - startedAt < 900) {
+                requestAnimationFrame(restorePosition);
+                return;
+              }
+
+              document.documentElement.style.scrollBehavior = previousScrollBehavior;
+            }
+
+            requestAnimationFrame(restorePosition);
+          }
+
+          frameDocument.addEventListener("click", preserveLandingPosition, true);
+
+          frameDocument.addEventListener("pointerdown", (event) => {
+            if (event.pointerType !== "mouse" || event.button !== 0) {
+              return;
+            }
+
+            dragging = true;
+            moved = false;
+            startX = event.clientX;
+            startY = event.clientY;
+            startScrollX = frame.contentWindow.scrollX;
+            startScrollY = frame.contentWindow.scrollY;
+          });
+
+          frameDocument.addEventListener("pointermove", (event) => {
+            if (!dragging) {
+              return;
+            }
+
+            const deltaX = event.clientX - startX;
+            const deltaY = event.clientY - startY;
+
+            if (!moved && Math.hypot(deltaX, deltaY) < 6) {
+              return;
+            }
+
+            moved = true;
+            event.preventDefault();
+            frameDocument.documentElement.classList.add("premia-dragging");
+            frame.contentWindow.scrollTo(startScrollX - deltaX, startScrollY - deltaY);
+            dragHint?.classList.add("hidden");
+          }, { passive: false });
+
+          function finishDrag() {
+            if (!dragging) {
+              return;
+            }
+
+            suppressClick = moved;
+            dragging = false;
+            moved = false;
+            frameDocument.documentElement.classList.remove("premia-dragging");
+          }
+
+          frameDocument.addEventListener("pointerup", finishDrag);
+          frameDocument.addEventListener("pointercancel", finishDrag);
+          frameDocument.addEventListener("pointerleave", finishDrag);
+          frameDocument.addEventListener("click", (event) => {
+            if (!suppressClick) {
+              return;
+            }
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            suppressClick = false;
+          }, true);
+        } catch (_error) {
+          // A demonstração continua navegável caso o navegador restrinja o acesso ao iframe.
+        }
+      }
+
+      mockupFrame?.addEventListener("load", () => hideEmbeddedScrollbar(mockupFrame));
+
+      if (mockupFrame?.contentDocument?.readyState === "complete") {
+        hideEmbeddedScrollbar(mockupFrame);
+      }
     </script>
   </body>
 </html>

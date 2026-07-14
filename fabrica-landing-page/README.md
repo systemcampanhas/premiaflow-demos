@@ -62,18 +62,26 @@ Usar nomes de pasta em minusculas, sem acentos, sem espacos e com hifens.
 
 ## Padrao visual
 
-Base recomendada:
+Modelo aprovado, baseado nas landings Comunic e Alexakis:
 
 - visual premium, limpo e comercial;
 - linguagem B2B;
 - primeira dobra forte e objetiva;
-- destaque para experiencia mobile;
+- experiencia do participante apresentada em celular;
+- sistema e operacao apresentados em monitor desktop, em secao separada;
 - mockup dentro de moldura visual de smartphone;
+- painel resumido compartilhado em `../sistema-demo/`, dentro de moldura de monitor;
 - poucos textos explicativos;
-- evitar aparencia de sistema tecnico;
+- painel navegavel pelas abas mais importantes da mandataria;
 - evitar pagina longa demais;
 - responsivo para celular e desktop.
 - em secoes de aplicacao, evitar chamadas interrogativas como `Quando pode fazer sentido`; usar linguagem afirmativa, por exemplo `Possibilidades`.
+
+As implementacoes de referencia sao:
+
+- `/comunic/index.html` para agencia com mockup Rio Preto Shopping;
+- `/alexakis/index.html` para agencia com mockup Bella Capri;
+- `/sistema-demo/index.html` para a visao estatica do painel operacional.
 
 ## Estrutura sugerida da landing
 
@@ -90,15 +98,21 @@ Base recomendada:
    - iframe com o mockup escolhido;
    - botao para abrir em nova aba.
 
-3. Como funciona
+3. Visao resumida do sistema
+   - secao independente da experiencia mobile;
+   - moldura de monitor desktop;
+   - iframe compartilhado apontando para `../sistema-demo/`;
+   - botao para abrir o painel em nova aba.
+
+4. Como funciona
    - papel do parceiro/cliente;
    - papel do Premia Flow.
 
-4. Onde aplicar
+5. Onde aplicar
    - usar titulo afirmativo, preferencialmente `Possibilidades`;
    - segmentos ou cenarios de uso.
 
-5. Conversa final
+6. Conversa final
    - CTA por e-mail, WhatsApp ou agenda.
 
 ## Papel do cliente/parceiro
@@ -151,8 +165,23 @@ Regras:
 
 - manter o iframe dentro da moldura de smartphone;
 - preservar rolagem interna;
+- ocultar apenas a barra visual de rolagem no mockup embutido;
+- permitir arraste com mouse como gesto de dedo e exibir um indicador discreto de movimento;
+- preservar a posicao da landing ao acionar links internos do mockup;
+- destacar a acao `Jogar` quando o mockup possuir essa navegacao;
 - evitar mockup que confunda o posicionamento comercial;
 - confirmar autorizacao quando usar marcas reais ou demos de clientes existentes.
+
+## Painel desktop
+
+Por padrao, novas landings usam o painel compartilhado `../sistema-demo/`.
+
+- manter celular e monitor em secoes separadas;
+- usar dados exclusivamente ficticios;
+- disponibilizar navegacao entre Inicio, Campanhas, Participacao, Premios, Regulamentacao e Relatorios;
+- manter a moldura e o iframe responsivos, sem overflow horizontal na landing;
+- usar asset local da moldura aprovada em cada pasta da landing;
+- nao conectar backend, API, banco ou autenticacao.
 
 ## Requisitos tecnicos
 

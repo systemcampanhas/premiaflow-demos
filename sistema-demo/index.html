@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Premia Flow | Painel da mandatária</title>
+    <meta name="description" content="Demonstração estática do ambiente de gestão de campanhas Premia Flow." />
+    <style>
+      :root {
+        --navy-950: #0b1220;
+        --navy-900: #111b2e;
+        --navy-800: #19263d;
+        --blue: #2563eb;
+        --blue-soft: #eaf1ff;
+        --green: #16806f;
+        --green-soft: #e8f6f2;
+        --gold: #bc8426;
+        --gold-soft: #fff5df;
+        --rose: #b75662;
+        --rose-soft: #fff0f2;
+        --ink: #172033;
+        --muted: #667085;
+        --line: #dfe5ed;
+        --paper: #f3f6fa;
+        --panel: #ffffff;
+        --shadow: 0 16px 38px rgba(21, 34, 54, 0.07);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--paper);
+      }
+
+      body {
+        margin: 0;
+        min-width: 980px;
+      }
+
+      button,
+      select {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      .admin-shell {
+        background: var(--paper);
+        display: grid;
+        grid-template-columns: 220px minmax(0, 1fr);
+        min-height: 100vh;
+      }
+
+      .sidebar {
+        background: var(--navy-950);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        padding: 18px 14px 14px;
+      }
+
+      .brand {
+        align-items: center;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        display: flex;
+        gap: 11px;
+        padding: 12px;
+      }
+
+      .brand-mark {
+        align-items: center;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.34);
+        display: flex;
+        height: 34px;
+        justify-content: center;
+        overflow: hidden;
+        width: 34px;
+      }
+
+      .brand-mark img,
+      .avatar img {
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+      }
+
+      .brand strong,
+      .brand span {
+        display: block;
+      }
+
+      .brand strong {
+        font-size: 0.9rem;
+      }
+
+      .brand span {
+        color: rgba(255, 255, 255, 0.58);
+        font-size: 0.68rem;
+        margin-top: 2px;
+      }
+
+      .nav {
+        display: grid;
+        gap: 16px;
+        margin-top: 22px;
+      }
+
+      .nav-group {
+        display: grid;
+        gap: 5px;
+      }
+
+      .nav-label {
+        color: rgba(255, 255, 255, 0.42);
+        font-size: 0.58rem;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+        padding: 0 10px 4px;
+        text-transform: uppercase;
+      }
+
+      .nav-button {
+        align-items: center;
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        color: rgba(255, 255, 255, 0.72);
+        display: flex;
+        font-size: 0.76rem;
+        font-weight: 700;
+        gap: 9px;
+        min-height: 36px;
+        padding: 8px 10px;
+        text-align: left;
+        width: 100%;
+      }
+
+      .nav-button::before {
+        background: currentColor;
+        border-radius: 4px;
+        content: "";
+        height: 7px;
+        opacity: 0.65;
+        width: 7px;
+      }
+
+      .nav-button:hover,
+      .nav-button:focus-visible {
+        background: rgba(255, 255, 255, 0.06);
+        color: #fff;
+        outline: 0;
+      }
+
+      .nav-button.active {
+        background: rgba(59, 130, 246, 0.18);
+        border-color: rgba(96, 165, 250, 0.18);
+        color: #fff;
+      }
+
+      .nav-button.active::before {
+        background: #65a3ff;
+        box-shadow: 0 0 0 4px rgba(101, 163, 255, 0.13);
+        opacity: 1;
+      }
+
+      .sidebar-footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.48);
+        font-size: 0.62rem;
+        line-height: 1.45;
+        margin-top: auto;
+        padding: 14px 9px 2px;
+      }
+
+      .workspace {
+        min-width: 0;
+      }
+
+      .topbar {
+        align-items: center;
+        background: rgba(255, 255, 255, 0.92);
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        height: 58px;
+        justify-content: space-between;
+        padding: 0 24px;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+      }
+
+      .breadcrumbs {
+        align-items: center;
+        color: var(--muted);
+        display: flex;
+        font-size: 0.72rem;
+        gap: 8px;
+      }
+
+      .breadcrumbs strong {
+        color: var(--ink);
+        font-size: 0.8rem;
+      }
+
+      .top-actions {
+        align-items: center;
+        display: flex;
+        gap: 10px;
+      }
+
+      .demo-badge,
+      .status {
+        align-items: center;
+        border-radius: 999px;
+        display: inline-flex;
+        font-weight: 800;
+      }
+
+      .demo-badge {
+        background: var(--blue-soft);
+        color: #2455a6;
+        font-size: 0.64rem;
+        padding: 7px 10px;
+      }
+
+      .avatar {
+        align-items: center;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        display: flex;
+        height: 30px;
+        justify-content: center;
+        overflow: hidden;
+        width: 30px;
+      }
+
+      .content {
+        padding: 22px 24px 30px;
+      }
+
+      .view[hidden] {
+        display: none;
+      }
+
+      .page-head {
+        align-items: flex-end;
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        margin-bottom: 18px;
+      }
+
+      .page-head h1 {
+        font-size: 1.65rem;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+      }
+
+      .page-head p {
+        color: var(--muted);
+        font-size: 0.78rem;
+        margin-top: 7px;
+      }
+
+      .controls {
+        align-items: center;
+        display: flex;
+        gap: 8px;
+      }
+
+      .select,
+      .button {
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        min-height: 34px;
+        padding: 8px 11px;
+      }
+
+      .select {
+        background: #fff;
+        color: var(--ink);
+      }
+
+      .button {
+        background: #fff;
+        color: #2455a6;
+      }
+
+      .button.primary {
+        background: var(--blue);
+        border-color: var(--blue);
+        color: #fff;
+      }
+
+      .metrics {
+        display: grid;
+        gap: 11px;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        margin-bottom: 14px;
+      }
+
+      .metric,
+      .panel,
+      .summary-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+
+      .metric {
+        border-radius: 14px;
+        min-height: 104px;
+        padding: 14px;
+      }
+
+      .metric-dot {
+        background: var(--blue-soft);
+        border-radius: 8px;
+        display: block;
+        height: 24px;
+        margin-bottom: 11px;
+        position: relative;
+        width: 24px;
+      }
+
+      .metric-dot::after {
+        background: var(--blue);
+        border-radius: 50%;
+        content: "";
+        height: 7px;
+        inset: 8px;
+        position: absolute;
+        width: 7px;
+      }
+
+      .metric:nth-child(2) .metric-dot,
+      .metric.orders .metric-dot {
+        background: var(--green-soft);
+      }
+
+      .metric:nth-child(2) .metric-dot::after,
+      .metric.orders .metric-dot::after {
+        background: var(--green);
+      }
+
+      .metric:nth-child(3) .metric-dot,
+      .metric.gifts .metric-dot {
+        background: var(--gold-soft);
+      }
+
+      .metric:nth-child(3) .metric-dot::after,
+      .metric.gifts .metric-dot::after {
+        background: var(--gold);
+      }
+
+      .metric:nth-child(4) .metric-dot {
+        background: #f0edff;
+      }
+
+      .metric:nth-child(4) .metric-dot::after {
+        background: #7357c8;
+      }
+
+      .metric:nth-child(5) .metric-dot,
+      .metric.alert .metric-dot {
+        background: var(--rose-soft);
+      }
+
+      .metric:nth-child(5) .metric-dot::after,
+      .metric.alert .metric-dot::after {
+        background: var(--rose);
+      }
+
+      .metric span {
+        color: var(--muted);
+        display: block;
+        font-size: 0.66rem;
+        font-weight: 700;
+      }
+
+      .metric strong {
+        display: block;
+        font-size: 1.25rem;
+        letter-spacing: -0.03em;
+        margin-top: 5px;
+      }
+
+      .grid-2 {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: 1.35fr 0.65fr;
+      }
+
+      .panel {
+        border-radius: 15px;
+        min-width: 0;
+        padding: 16px;
+      }
+
+      .panel-head {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+
+      .panel-head h2 {
+        font-size: 0.84rem;
+      }
+
+      .panel-head span {
+        color: var(--muted);
+        font-size: 0.64rem;
+      }
+
+      .chart {
+        align-items: end;
+        background:
+          repeating-linear-gradient(to bottom, transparent 0 34px, #edf1f6 35px),
+          linear-gradient(180deg, #fbfdff, #f7f9fc);
+        border: 1px solid #edf1f6;
+        border-radius: 11px;
+        display: grid;
+        gap: 9px;
+        grid-template-columns: repeat(10, 1fr);
+        height: 170px;
+        padding: 18px 15px 12px;
+      }
+
+      .bar {
+        background: linear-gradient(180deg, #2f7df4, #84b5ff);
+        border-radius: 6px 6px 2px 2px;
+        min-height: 15px;
+      }
+
+      .bar.alt {
+        background: linear-gradient(180deg, #16806f, #70c7b9);
+      }
+
+      .progress-list {
+        display: grid;
+        gap: 13px;
+      }
+
+      .progress-row {
+        display: grid;
+        gap: 6px;
+      }
+
+      .progress-copy {
+        color: var(--muted);
+        display: flex;
+        font-size: 0.66rem;
+        justify-content: space-between;
+      }
+
+      .progress-copy strong {
+        color: var(--ink);
+      }
+
+      .progress-track {
+        background: #edf1f6;
+        border-radius: 999px;
+        height: 7px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        background: var(--blue);
+        border-radius: inherit;
+        height: 100%;
+      }
+
+      .table-wrap {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        border-bottom: 1px solid var(--line);
+        font-size: 0.67rem;
+        padding: 10px 12px;
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      th {
+        background: #f7f9fc;
+        color: var(--muted);
+        font-size: 0.58rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .status {
+        background: var(--green-soft);
+        color: var(--green);
+        font-size: 0.58rem;
+        padding: 5px 8px;
+      }
+
+      .status.review {
+        background: var(--gold-soft);
+        color: #8b5c0c;
+      }
+
+      .status.draft {
+        background: #eef1f6;
+        color: #596477;
+      }
+
+      .status.alert {
+        background: var(--rose-soft);
+        color: var(--rose);
+      }
+
+      .summary-grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-bottom: 14px;
+      }
+
+      .summary-card {
+        border-radius: 14px;
+        padding: 15px;
+      }
+
+      .summary-card small {
+        color: var(--muted);
+        display: block;
+        font-size: 0.62rem;
+        font-weight: 700;
+      }
+
+      .summary-card strong {
+        display: block;
+        font-size: 1.2rem;
+        margin-top: 7px;
+      }
+
+      .summary-card p {
+        color: var(--muted);
+        font-size: 0.64rem;
+        line-height: 1.45;
+        margin-top: 5px;
+      }
+
+      .regulatory-card {
+        align-items: center;
+        background: linear-gradient(135deg, #12203a, #1b3152);
+        border-radius: 15px;
+        color: #fff;
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        margin-bottom: 14px;
+        padding: 18px;
+      }
+
+      .regulatory-card h2 {
+        font-size: 1rem;
+      }
+
+      .regulatory-card p {
+        color: rgba(255, 255, 255, 0.68);
+        font-size: 0.68rem;
+        line-height: 1.5;
+        margin-top: 6px;
+      }
+
+      .regulatory-score {
+        align-items: center;
+        border: 6px solid rgba(255, 255, 255, 0.14);
+        border-top-color: #75d5c5;
+        border-radius: 50%;
+        display: flex;
+        flex: 0 0 auto;
+        font-size: 0.78rem;
+        font-weight: 900;
+        height: 64px;
+        justify-content: center;
+        width: 64px;
+      }
+
+      .document-list {
+        display: grid;
+        gap: 8px;
+      }
+
+      .document {
+        align-items: center;
+        background: #f8fafc;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        display: flex;
+        font-size: 0.68rem;
+        gap: 10px;
+        justify-content: space-between;
+        padding: 10px 12px;
+      }
+
+      .document strong {
+        display: block;
+        font-size: 0.7rem;
+      }
+
+      .document span {
+        color: var(--muted);
+        display: block;
+        font-size: 0.6rem;
+        margin-top: 2px;
+      }
+
+      .report-grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .report {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        min-height: 126px;
+        padding: 15px;
+      }
+
+      .report-tag {
+        color: var(--blue);
+        font-size: 0.58rem;
+        font-weight: 900;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .report h2 {
+        font-size: 0.8rem;
+        margin-top: 12px;
+      }
+
+      .report p {
+        color: var(--muted);
+        font-size: 0.64rem;
+        line-height: 1.45;
+        margin-top: 6px;
+      }
+
+      .sr-only {
+        clip: rect(0, 0, 0, 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+
+      @media (max-width: 980px) {
+        html:not(.embedded) body {
+          min-width: 0;
+        }
+
+        html:not(.embedded) .admin-shell {
+          display: block;
+        }
+
+        html:not(.embedded) .sidebar {
+          min-height: auto;
+          padding: 10px;
+        }
+
+        html:not(.embedded) .brand {
+          padding: 9px;
+        }
+
+        html:not(.embedded) .brand-mark {
+          height: 30px;
+          width: 30px;
+        }
+
+        html:not(.embedded) .nav {
+          display: flex;
+          gap: 7px;
+          margin-top: 10px;
+          overflow-x: auto;
+          padding-bottom: 3px;
+          scrollbar-width: thin;
+        }
+
+        html:not(.embedded) .nav-group {
+          display: flex;
+          flex: 0 0 auto;
+          gap: 5px;
+        }
+
+        html:not(.embedded) .nav-label,
+        html:not(.embedded) .sidebar-footer,
+        html:not(.embedded) .nav-button::before {
+          display: none;
+        }
+
+        html:not(.embedded) .nav-button {
+          min-height: 32px;
+          padding: 7px 9px;
+          white-space: nowrap;
+          width: auto;
+        }
+
+        html:not(.embedded) .topbar {
+          height: 50px;
+          padding: 0 12px;
+        }
+
+        html:not(.embedded) .content {
+          padding: 14px 12px 24px;
+        }
+
+        html:not(.embedded) .page-head {
+          align-items: stretch;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        html:not(.embedded) .page-head h1 {
+          font-size: 1.35rem;
+        }
+
+        html:not(.embedded) .metrics {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        html:not(.embedded) .grid-2,
+        html:not(.embedded) .summary-grid,
+        html:not(.embedded) .report-grid {
+          grid-template-columns: 1fr;
+        }
+
+        html:not(.embedded) .table-wrap {
+          overflow-x: auto;
+        }
+
+        html:not(.embedded) table {
+          min-width: 650px;
+        }
+
+        html:not(.embedded) .demo-badge {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"><img src="assets/premia-flow-logo.jpg" alt="" /></span>
+          <div>
+            <strong>Premia Flow</strong>
+            <span>Console operacional</span>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Áreas da demonstração">
+          <div class="nav-group">
+            <span class="nav-label">Operação</span>
+            <button class="nav-button active" type="button" data-view="inicio">Início</button>
+          </div>
+          <div class="nav-group">
+            <span class="nav-label">Campanhas</span>
+            <button class="nav-button" type="button" data-view="campanhas">Campanhas</button>
+            <button class="nav-button" type="button" data-view="participacao">Participação</button>
+            <button class="nav-button" type="button" data-view="premios">Prêmios</button>
+          </div>
+          <div class="nav-group">
+            <span class="nav-label">Regulamentação</span>
+            <button class="nav-button" type="button" data-view="regulamentacao">Regulamentação</button>
+          </div>
+          <div class="nav-group">
+            <span class="nav-label">Governança</span>
+            <button class="nav-button" type="button" data-view="relatorios">Relatórios</button>
+          </div>
+        </nav>
+
+        <p class="sidebar-footer">Demonstração estática com informações fictícias.</p>
+      </aside>
+
+      <div class="workspace">
+        <header class="topbar">
+          <div class="breadcrumbs">
+            <span>Mandatária</span>
+            <span aria-hidden="true">›</span>
+            <strong id="current-section">Visão da operação</strong>
+          </div>
+          <div class="top-actions">
+            <span class="demo-badge">Ambiente demonstrativo</span>
+            <span class="avatar" aria-label="Perfil demonstrativo"><img src="assets/premia-flow-logo.jpg" alt="" /></span>
+          </div>
+        </header>
+
+        <main class="content" id="main-content">
+          <section class="view" data-panel="inicio">
+            <div class="page-head">
+              <div>
+                <h1>Visão da operação</h1>
+                <p>Principais números da campanha, sem dados pessoais.</p>
+              </div>
+              <div class="controls">
+                <label>
+                  <span class="sr-only">Período</span>
+                  <select class="select" aria-label="Período demonstrativo">
+                    <option>Últimos 30 dias</option>
+                    <option>Últimos 7 dias</option>
+                    <option>Últimos 90 dias</option>
+                  </select>
+                </label>
+                <button class="button" type="button">Atualizar</button>
+              </div>
+            </div>
+
+            <div class="metrics">
+              <article class="metric"><i class="metric-dot"></i><span>Campanhas ativas</span><strong>3</strong></article>
+              <article class="metric"><i class="metric-dot"></i><span>Compras aprovadas</span><strong>6.914</strong></article>
+              <article class="metric"><i class="metric-dot"></i><span>Resgates</span><strong>318</strong></article>
+              <article class="metric"><i class="metric-dot"></i><span>Consumidores</span><strong>4.286</strong></article>
+              <article class="metric"><i class="metric-dot"></i><span>Validações pendentes</span><strong>126</strong></article>
+            </div>
+
+            <div class="grid-2">
+              <article class="panel">
+                <div class="panel-head"><h2>Compras aprovadas e resgates</h2><span>Últimos 30 dias</span></div>
+                <div class="chart" aria-label="Gráfico demonstrativo de participação">
+                  <i class="bar" style="height: 35%"></i><i class="bar alt" style="height: 26%"></i>
+                  <i class="bar" style="height: 51%"></i><i class="bar alt" style="height: 38%"></i>
+                  <i class="bar" style="height: 44%"></i><i class="bar alt" style="height: 61%"></i>
+                  <i class="bar" style="height: 72%"></i><i class="bar alt" style="height: 55%"></i>
+                  <i class="bar" style="height: 86%"></i><i class="bar alt" style="height: 67%"></i>
+                </div>
+              </article>
+              <article class="panel">
+                <div class="panel-head"><h2>Distribuição da operação</h2><span>Hoje</span></div>
+                <div class="progress-list">
+                  <div class="progress-row"><div class="progress-copy"><strong>Aprovadas</strong><span>86%</span></div><div class="progress-track"><div class="progress-fill" style="width: 86%"></div></div></div>
+                  <div class="progress-row"><div class="progress-copy"><strong>Em análise</strong><span>9%</span></div><div class="progress-track"><div class="progress-fill" style="width: 9%; background: var(--gold)"></div></div></div>
+                  <div class="progress-row"><div class="progress-copy"><strong>Reprovadas</strong><span>5%</span></div><div class="progress-track"><div class="progress-fill" style="width: 5%; background: var(--rose)"></div></div></div>
+                  <div class="progress-row"><div class="progress-copy"><strong>Prêmios entregues</strong><span>74%</span></div><div class="progress-track"><div class="progress-fill" style="width: 74%; background: var(--green)"></div></div></div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="view" data-panel="campanhas" hidden>
+            <div class="page-head">
+              <div><h1>Campanhas</h1><p>Gestão das campanhas promocionais da mandatária.</p></div>
+              <div class="controls"><button class="button primary" type="button">Nova campanha</button></div>
+            </div>
+            <div class="summary-grid">
+              <article class="summary-card"><small>Ativas</small><strong>3</strong><p>Campanhas disponíveis ao público.</p></article>
+              <article class="summary-card"><small>Em preparação</small><strong>2</strong><p>Configuração e documentação em andamento.</p></article>
+              <article class="summary-card"><small>Encerradas</small><strong>8</strong><p>Histórico preservado para consulta.</p></article>
+            </div>
+            <article class="panel">
+              <div class="panel-head"><h2>Todas as campanhas</h2><span>13 campanhas</span></div>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Campanha</th><th>Modalidade</th><th>Período</th><th>Participantes</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Campanha Premiada</strong></td><td>Conjugada</td><td>01 jul — 31 ago</td><td>4.286</td><td><span class="status">Ativa</span></td></tr>
+                    <tr><td><strong>Festival de Prêmios</strong></td><td>Números da sorte</td><td>15 jun — 15 ago</td><td>2.148</td><td><span class="status">Ativa</span></td></tr>
+                    <tr><td><strong>Compre e Ganhe</strong></td><td>Prêmio instantâneo</td><td>01 set — 30 set</td><td>—</td><td><span class="status review">Em revisão</span></td></tr>
+                    <tr><td><strong>Campanha Sazonal</strong></td><td>Conjugada</td><td>A definir</td><td>—</td><td><span class="status draft">Rascunho</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+
+          <section class="view" data-panel="participacao" hidden>
+            <div class="page-head">
+              <div><h1>Participação</h1><p>Acompanhamento dos cadastros e comprovantes da campanha.</p></div>
+              <div class="controls"><button class="button primary" type="button">Validar compras</button></div>
+            </div>
+            <div class="metrics">
+              <article class="metric"><i class="metric-dot"></i><span>Participantes</span><strong>4.286</strong></article>
+              <article class="metric orders"><i class="metric-dot"></i><span>Compras recebidas</span><strong>6.914</strong></article>
+              <article class="metric gifts"><i class="metric-dot"></i><span>Números gerados</span><strong>21.742</strong></article>
+              <article class="metric"><i class="metric-dot"></i><span>Aprovação automática</span><strong>78%</strong></article>
+              <article class="metric alert"><i class="metric-dot"></i><span>Pendentes</span><strong>126</strong></article>
+            </div>
+            <article class="panel">
+              <div class="panel-head"><h2>Movimentações recentes</h2><span>Dados demonstrativos</span></div>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Registro</th><th>Compra</th><th>Números</th><th>Horário</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr><td>Participante #4286</td><td>R$ 186,40</td><td>6</td><td>14:42</td><td><span class="status">Aprovada</span></td></tr>
+                    <tr><td>Participante #4285</td><td>R$ 92,10</td><td>3</td><td>14:37</td><td><span class="status review">Em análise</span></td></tr>
+                    <tr><td>Participante #4284</td><td>R$ 248,90</td><td>8</td><td>14:29</td><td><span class="status">Aprovada</span></td></tr>
+                    <tr><td>Participante #4283</td><td>R$ 74,50</td><td>2</td><td>14:18</td><td><span class="status alert">Revisar</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+
+          <section class="view" data-panel="premios" hidden>
+            <div class="page-head">
+              <div><h1>Prêmios</h1><p>Controle de distribuição, disponibilidade e entrega.</p></div>
+              <div class="controls"><button class="button primary" type="button">Consultar prêmios</button></div>
+            </div>
+            <div class="summary-grid">
+              <article class="summary-card"><small>Prêmios instantâneos</small><strong>318</strong><p>276 entregues e 42 disponíveis.</p></article>
+              <article class="summary-card"><small>Prêmios de sorteio</small><strong>12</strong><p>Apuração prevista no regulamento.</p></article>
+              <article class="summary-card"><small>Entregas pendentes</small><strong>9</strong><p>Aguardando confirmação de recebimento.</p></article>
+            </div>
+            <article class="panel">
+              <div class="panel-head"><h2>Controle de premiação</h2><span>Campanha Premiada</span></div>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Prêmio</th><th>Tipo</th><th>Disponível</th><th>Distribuído</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Vale-compras R$ 100</strong></td><td>Instantâneo</td><td>24</td><td>176</td><td><span class="status">Ativo</span></td></tr>
+                    <tr><td><strong>Vale-compras R$ 300</strong></td><td>Instantâneo</td><td>18</td><td>82</td><td><span class="status">Ativo</span></td></tr>
+                    <tr><td><strong>Prêmio principal</strong></td><td>Sorteio</td><td>1</td><td>0</td><td><span class="status review">Apuração futura</span></td></tr>
+                    <tr><td><strong>Prêmio semanal</strong></td><td>Sorteio</td><td>4</td><td>3</td><td><span class="status">Em andamento</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+
+          <section class="view" data-panel="regulamentacao" hidden>
+            <div class="page-head">
+              <div><h1>Regulamentação guiada</h1><p>Preparação documental e acompanhamento dos processos da campanha.</p></div>
+              <div class="controls"><button class="button primary" type="button">Abrir processo</button></div>
+            </div>
+            <div class="regulatory-card">
+              <div>
+                <h2>Campanha Premiada</h2>
+                <p>Documentos, responsáveis e registros organizados em um único fluxo.</p>
+              </div>
+              <div class="regulatory-score" aria-label="Progresso de 82 por cento">82%</div>
+            </div>
+            <div class="grid-2">
+              <article class="panel">
+                <div class="panel-head"><h2>Documentos da campanha</h2><span>5 de 6 preparados</span></div>
+                <div class="document-list">
+                  <div class="document"><div><strong>Plano da operação</strong><span>Versão atual registrada</span></div><span class="status">Preparado</span></div>
+                  <div class="document"><div><strong>Regulamento da campanha</strong><span>Revisão concluída</span></div><span class="status">Preparado</span></div>
+                  <div class="document"><div><strong>Demonstrativo de premiação</strong><span>Valores e quantidades conferidos</span></div><span class="status">Preparado</span></div>
+                  <div class="document"><div><strong>Termo da mandatária</strong><span>Aguardando assinatura</span></div><span class="status review">Pendente</span></div>
+                </div>
+              </article>
+              <article class="panel">
+                <div class="panel-head"><h2>Rastreabilidade</h2><span>Últimos registros</span></div>
+                <div class="progress-list">
+                  <div class="progress-row"><div class="progress-copy"><strong>Documento revisado</strong><span>Hoje, 14:12</span></div><div class="progress-track"><div class="progress-fill" style="width: 100%; background: var(--green)"></div></div></div>
+                  <div class="progress-row"><div class="progress-copy"><strong>Responsável confirmado</strong><span>Hoje, 11:48</span></div><div class="progress-track"><div class="progress-fill" style="width: 100%"></div></div></div>
+                  <div class="progress-row"><div class="progress-copy"><strong>Pacote atualizado</strong><span>Ontem, 17:31</span></div><div class="progress-track"><div class="progress-fill" style="width: 100%; background: var(--gold)"></div></div></div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="view" data-panel="relatorios" hidden>
+            <div class="page-head">
+              <div><h1>Relatórios</h1><p>Consultas consolidadas para acompanhamento e prestação de contas.</p></div>
+              <div class="controls"><button class="button primary" type="button">Gerar relatório</button></div>
+            </div>
+            <div class="report-grid">
+              <article class="report"><span class="report-tag">Participação</span><h2>Cadastros e compras</h2><p>Visão consolidada de participantes, comprovantes e validações.</p></article>
+              <article class="report"><span class="report-tag">Premiação</span><h2>Prêmios e entregas</h2><p>Distribuição, disponibilidade, contemplados e confirmações.</p></article>
+              <article class="report"><span class="report-tag">Rastreabilidade</span><h2>Registros da campanha</h2><p>Histórico de ações e movimentações para consulta operacional.</p></article>
+              <article class="report"><span class="report-tag">Apuração</span><h2>Números da sorte</h2><p>Geração de números e resultados organizados por período.</p></article>
+              <article class="report"><span class="report-tag">Lojas</span><h2>Desempenho por unidade</h2><p>Participação e compras agrupadas pelas lojas da campanha.</p></article>
+              <article class="report"><span class="report-tag">Encerramento</span><h2>Resumo final</h2><p>Indicadores e documentos reunidos para fechamento da operação.</p></article>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      const embedded = window.self !== window.top;
+
+      if (embedded) {
+        document.documentElement.classList.add("embedded");
+      }
+
+      const sectionNames = {
+        inicio: "Visão da operação",
+        campanhas: "Campanhas",
+        participacao: "Participação",
+        premios: "Prêmios",
+        regulamentacao: "Regulamentação guiada",
+        relatorios: "Relatórios",
+      };
+
+      const navButtons = document.querySelectorAll("[data-view]");
+      const panels = document.querySelectorAll("[data-panel]");
+      const currentSection = document.querySelector("#current-section");
+      const adminShell = document.querySelector(".admin-shell");
+      const sidebar = document.querySelector(".sidebar");
+
+      function fitEmbeddedDashboard() {
+        if (!embedded) {
+          return;
+        }
+
+        const baseWidth = 1040;
+        const scale = Math.min(1, window.innerWidth / baseWidth);
+        const fittedHeight = Math.ceil(window.innerHeight / scale);
+
+        adminShell.style.width = `${baseWidth}px`;
+        adminShell.style.minHeight = `${fittedHeight}px`;
+        adminShell.style.transform = `scale(${scale})`;
+        adminShell.style.transformOrigin = "top left";
+        sidebar.style.minHeight = `${fittedHeight}px`;
+        document.body.style.height = `${Math.max(window.innerHeight, adminShell.scrollHeight * scale)}px`;
+        document.body.style.minWidth = "0";
+        document.body.style.overflow = "hidden";
+      }
+
+      function showView(view) {
+        navButtons.forEach((button) => {
+          const active = button.dataset.view === view;
+          button.classList.toggle("active", active);
+          button.setAttribute("aria-current", active ? "page" : "false");
+        });
+
+        panels.forEach((panel) => {
+          panel.hidden = panel.dataset.panel !== view;
+        });
+
+        currentSection.textContent = sectionNames[view];
+        document.scrollingElement.scrollTop = 0;
+        document.scrollingElement.scrollLeft = 0;
+        requestAnimationFrame(fitEmbeddedDashboard);
+      }
+
+      navButtons.forEach((button) => {
+        button.addEventListener("click", () => showView(button.dataset.view));
+      });
+
+      window.addEventListener("resize", fitEmbeddedDashboard);
+      requestAnimationFrame(fitEmbeddedDashboard);
+    </script>
+  </body>
+</html>

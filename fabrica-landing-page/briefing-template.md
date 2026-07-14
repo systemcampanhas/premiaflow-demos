@@ -22,6 +22,8 @@ Preencha ou envie em texto livre.
 - Pode usar marcas reais?
 - Precisa criar mockup neutro?
 - A experiencia deve ser mais sorteio, compre e ganhe, instant win, cupons ou outro formato?
+- Usar a visao desktop compartilhada do sistema? Por padrao: sim.
+- Existe alguma restricao para a moldura de celular ou monitor?
 
 ## Mensagem principal
 
@@ -56,4 +58,3 @@ O Premia Flow apoia com:
 - Nome da pasta desejada:
 - Criar commit?
 - Fazer push para GitHub Pages?
-
