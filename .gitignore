@@ -23,3 +23,15 @@
 !sistema-demo/index.html
 !sistema-demo/assets/
 !sistema-demo/assets/**
+!demo-varejo/
+!demo-varejo/index.html
+!demo-varejo/assets/
+!demo-varejo/assets/**
+!demo-gastronomia/
+!demo-gastronomia/index.html
+!demo-gastronomia/assets/
+!demo-gastronomia/assets/**
+!premia-flow/
+!premia-flow/index.html
+!premia-flow/assets/
+!premia-flow/assets/**

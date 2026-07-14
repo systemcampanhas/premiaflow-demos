@@ -79,8 +79,10 @@ Modelo aprovado, baseado nas landings Comunic e Alexakis:
 
 As implementacoes de referencia sao:
 
-- `/comunic/index.html` para agencia com mockup Rio Preto Shopping;
-- `/alexakis/index.html` para agencia com mockup Bella Capri;
+- `/comunic/index.html` para agencia com mockup ficticio de varejo;
+- `/alexakis/index.html` para agencia com mockup ficticio de gastronomia;
+- `/premia-flow/index.html` para apresentacao generica do Premia Flow;
+- `/demo-varejo/index.html` e `/demo-gastronomia/index.html` para experiencias ficticias usadas nas landings;
 - `/sistema-demo/index.html` para a visao estatica do painel operacional.
 
 ## Estrutura sugerida da landing
@@ -172,7 +174,10 @@ Regras:
 - ao abrir `Jogar`, centralizar os rolos do jogo na tela do celular;
 - posicionar a acao `Girar agora` imediatamente abaixo dos rolos;
 - evitar mockup que confunda o posicionamento comercial;
-- confirmar autorizacao quando usar marcas reais ou demos de clientes existentes.
+- usar nas landings apenas nomes, logos, imagens e dados ficticios;
+- manter logos ficticios como assets raster locais com acabamento realista;
+- quando uma demo real servir de base, criar uma copia isolada e nunca alterar o mockup original;
+- reservar mockups com marcas reais para apresentacoes diretas e autorizadas dessas empresas.
 
 ## Painel desktop
 
